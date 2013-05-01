@@ -1,0 +1,30 @@
+application: lone-runner
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+- url: /static
+  static_dir: static
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+- url: /google15724d950963039f.html
+  static_files: google15724d950963039f.html
+  upload: google15724d950963039f.html
+- url: /sitemap.xml
+  static_files: sitemap.xml
+  upload: sitemap.xml 
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: jinja2
+  version: "2.6"

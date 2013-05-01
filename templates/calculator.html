@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Pace Calculator <span class="time"></span></h2>
+<form method="post" name="frm1">
+			
+			
+			<label>
+				<div class="pace">Pace/Time</div>
+				<input type="text" name="txtPace" autofocus="true" value="{{txtPace}}"/>
+				<div class="error">{{error}}</div>
+			</label>
+			
+			<label >
+				<div class="units">Units/Distance</div>
+				<select name="selUnits" id="selUnits">
+					<option selected value="{{selUnits}}">{{selUnits}}</option>
+					<optgroup label="By Pace">
+
+					<option value="min/km">min/km</option>
+					<option value="min/mile">min/mile</option>
+					</optgroup>
+					<optgroup label="By Distance">
+
+					<option value="400m">400m</option>
+					<option value="800m">800m</option>
+					<option value="1200m">1200m</option>
+					<option value="1500m">1500m</option>
+					<option value="1600m">1600m</option>
+					<option value="5k">5k</option>
+					<option value="10k">10k</option>					
+					</optgroup>
+				</select>
+				<div class="error">{{error_units}}</div>
+			</label>
+			
+			
+			<p class="clear">
+
+			
+			
+			
+			<input type="submit" value="Calculate" class="button cyan"/>
+			<input type="button" name="clear" value="Clear" class="button cyan" onclick="ClearAllControls()"/>
+			</p>
+
+</form>
+			{% if output %}
+			<h3>Your calculated time over a set distance</h3>
+			<p class="results">
+				
+				{% for x in output|dictsort(by='value') %}
+
+				<div class="{{ loop.cycle('row_odd', 'row_even') }}">{{x[0]}}<span class="time_result">{{x[1][1]}}</span></div>
+				{% endfor %}<br>
+			<span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span>
+
+			{%endif %}
+
+
+			</p>
+
+
+
+
+{% endblock %}
