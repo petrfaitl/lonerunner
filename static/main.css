@@ -31,7 +31,14 @@ body {
 
 h1 {
 	font-size: 30px;
+	margin-top: 5px;
 	margin-bottom: 20px;
+	margin-right: 2px;
+}
+h1 span {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 2px;
 }
 
 h2{
@@ -160,6 +167,7 @@ div.row_even {
 div.error {
 	color:crimson;
 	font-size: 12px;
+	margin-top: 2px;
 
 }
 
