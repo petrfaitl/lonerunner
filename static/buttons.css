@@ -1,4 +1,13 @@
-
+@font-face {
+    font-family: 'EntypoRegular';
+    src: url('/static/font/entypo-webfont.eot');
+    src: url('/static/font/entypo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/font/entypo-webfont.woff') format('woff'),
+         url('/static/font/entypo-webfont.ttf') format('truetype'),
+         url('/static/font/entypo-webfont.svg#EntypoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .button, .button-bevel {
   font-family: Arvo, serif;
@@ -103,7 +112,7 @@
   .rss:after { content: "S"; font-size: 34px; }
   .cloud:after { content: "y"; font-size: 34px; }
   .download:after { content: "w"; font-size: 34px; }
-  .trash:after { content: "I"; font-size: 34px; }
+  .menu:after { content: "i";  }
   .rack:after { content: "t"; font-size: 34px; }
   .map:after { content: "1"; font-size: 34px; }
   
