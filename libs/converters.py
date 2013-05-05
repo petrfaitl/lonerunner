@@ -18,7 +18,7 @@ def convertToSec(pace):
 def converter(pace, units):
 	time_in_sec =  convertToSec(pace)
 
-	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0}
+	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1000m":1.0, "1mile":1.60934 }
 
 	
 	pace_per_k= time_in_sec /mileage[units]
@@ -26,15 +26,17 @@ def converter(pace, units):
 	speed_miles = round(speed /1.60934,1)
 
 	output = {}
-	output["400m"] =[400,converToTime(int(pace_per_k * 0.4))]
-	output["1000m"] = [1000,converToTime(int(pace_per_k * 1))]
-	output["800m"] = [800,converToTime(int(pace_per_k * 0.8))]
-	output["1200m"] = [1200,converToTime(int(pace_per_k *1.2))]
-	output["1500m"] = [1500,converToTime(int(pace_per_k * 1.5))]
-	output["1600m"] = [1600,converToTime(int(pace_per_k * 1.6))]
-	output["1mile"] = [1609,converToTime(int(pace_per_k * 1.60934))]
-	output["5k"] = [5000,converToTime(int(pace_per_k * 5))]
-	output["10k"] = [10000,converToTime(int(pace_per_k *10))]
+	output["400m"] =[400,converToTime(int(pace_per_k * mileage["400m"]))]
+	output["1000m"] = [1000,converToTime(int(pace_per_k * mileage["1000m"]))]
+	output["800m"] = [800,converToTime(int(pace_per_k * mileage["800m"]))]
+	output["1200m"] = [1200,converToTime(int(pace_per_k * mileage["1200m"]))]
+	output["1500m"] = [1500,converToTime(int(pace_per_k * mileage["1500m"]))]
+	output["1600m"] = [1600,converToTime(int(pace_per_k * mileage["1600m"]))]
+	output["1mile"] = [1609,converToTime(int(pace_per_k * mileage["1mile"]))]
+	output["5k"] = [5000,converToTime(int(pace_per_k * mileage["5k"]))]
+	output["10k"] = [10000,converToTime(int(pace_per_k * mileage["10k"]))]
+	output["Half"] = [26000,converToTime(int(pace_per_k * mileage["Half"]))]
+	output["Marathon"] = [42000,converToTime(int(pace_per_k * mileage["Marathon"]))]
 	
 
 

@@ -28,7 +28,9 @@
 					<option value="1500m">1500m</option>
 					<option value="1600m">1600m</option>
 					<option value="5k">5k</option>
-					<option value="10k">10k</option>					
+					<option value="10k">10k</option>
+					<option value="Half">Half</option>
+					<option value="Marathon">Marathon</option>					
 					</optgroup>
 				</select>
 				<div class="error">{{error_units}}</div>
@@ -46,7 +48,7 @@
 
 </form>
 			{% if output %}
-			<h3>Your calculated time over a set distance</h3>
+			<h3>Your calculated time over a set distances</h3>
 			<p class="results">
 				
 				{% for x in output|dictsort(by='value') %}
