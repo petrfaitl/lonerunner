@@ -2,14 +2,21 @@
 
 
 
-* {margin:0;padding:0;}
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box; 
+
+}
+a {
+    text-decoration: none;
+}
 
 html {
 	height: 100%;
 }
 
 body {
-	/*position: relative;*/
 	height: 100%;
 	width: 300px;
 	margin:0 auto;
@@ -69,45 +76,7 @@ h1 span {
 
 }
 
-#menu-option {
-    /*clear: both;*/
-    position: absolute;
-    width: 100%;
-    background-color: #2e6288;
-     
-    box-shadow: 0 2px 2px rgba(25, 68, 99, .4);
-     
-    display: inline-block; /* Not shown initially */
-}
 
-#menu-option ul {
-    overflow: hidden; /* clears the float */
-}
-#menu-option li {
-    float: left;
-    width: 50%; /* takes up 50% of the available width */
-}
-
-#menu-option a {
-    color: #c2daeb;
-    white-space: nowrap;
-    text-decoration: none;
-    display: block;
-     
-    transition: color 0.3s linear, background-color 0.3s linear;
-    box-shadow: inset 0 0 2px #0A3E64;
-     
-    padding: .375em; /* 6/16 = .375em */
-    
-    /* These vertically center the contents of the element */
-    line-height: 2.875em; /* 46/16 = 3.375em */
-    height: 2.875em; /* 46/16 = 3.375em */
-}
-#menu-option a:hover,
-#menu-option a:active {
-    color: #fff;
-    background-color: #23577D;
-}
 
 /*content formatting*/
 h2{
