@@ -31,7 +31,7 @@ def converter(pace, units):
 		if distance == "min/km" or distance == "min/mile":
 			continue
 		else:
-			output[distance] = [distance, converToTime(int(pace_per_k * mileage[distance]))]
+			output[distance] = [mileage[distance], converToTime(int(pace_per_k * mileage[distance]))]
 
 
 	
