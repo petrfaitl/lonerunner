@@ -26,17 +26,14 @@ def converter(pace, units):
 	speed_miles = round(speed /1.60934,1)
 
 	output = {}
-	output["400m"] =[400,converToTime(int(pace_per_k * mileage["400m"]))]
-	output["1000m"] = [1000,converToTime(int(pace_per_k * mileage["1000m"]))]
-	output["800m"] = [800,converToTime(int(pace_per_k * mileage["800m"]))]
-	output["1200m"] = [1200,converToTime(int(pace_per_k * mileage["1200m"]))]
-	output["1500m"] = [1500,converToTime(int(pace_per_k * mileage["1500m"]))]
-	output["1600m"] = [1600,converToTime(int(pace_per_k * mileage["1600m"]))]
-	output["1mile"] = [1609,converToTime(int(pace_per_k * mileage["1mile"]))]
-	output["5k"] = [5000,converToTime(int(pace_per_k * mileage["5k"]))]
-	output["10k"] = [10000,converToTime(int(pace_per_k * mileage["10k"]))]
-	output["Half"] = [26000,converToTime(int(pace_per_k * mileage["Half"]))]
-	output["Marathon"] = [42000,converToTime(int(pace_per_k * mileage["Marathon"]))]
+
+	for distance in mileage:
+		if distance == "min/km" or distance == "min/mile":
+			continue
+		else:
+			output[distance] = [distance, converToTime(int(pace_per_k * mileage[distance]))]
+
+
 	
 
 
@@ -47,4 +44,4 @@ def converter(pace, units):
 
 
 
-#print converter("3:45", "min/km")
+# print converter("3:45", "min/km")
