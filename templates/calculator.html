@@ -13,6 +13,12 @@
 			
 			<label >
 				<div class="units">Units/Distance</div>
+				<input type="text" name="txtCustDistance"  value="{{txtCustDistance}}"/>
+				<select name="selCustDistance" selected="option0">
+					<option value="custDistance_km">km</option>
+					<option value="custDistance_miles">miles</option>
+
+				</select>
 				<select name="selUnits" id="selUnits">
 					<option selected value="{{selUnits}}">{{selUnits}}</option>
 					<optgroup label="By Pace">
@@ -37,13 +43,13 @@
 			</label>
 			
 			
-			<p class="clear">
+			<!-- <p class="clear"> -->
 
 			
 			
 			
 			<input type="submit" value="Calculate" class="button cyan"/>
-			<input type="button" name="clear" value="Clear" class="button cyan" onclick="ClearAllControls()"/>
+			<!-- <input type="button" name="clear" value="Clear" class="button cyan" onclick="ClearAllControls()"/> -->
 			</p>
 
 </form>

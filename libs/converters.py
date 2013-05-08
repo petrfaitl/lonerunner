@@ -18,7 +18,7 @@ def convertToSec(pace):
 def converter(pace, units):
 	time_in_sec =  convertToSec(pace)
 
-	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1000m":1.0, "1mile":1.60934 }
+	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1km":1.0, "1mile":1.60934 }
 
 	
 	pace_per_k= time_in_sec /mileage[units]
