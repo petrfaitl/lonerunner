@@ -81,6 +81,10 @@ h3{
 
 }
 
+h4{
+    margin:20px 0;
+}
+
 .units{
     display: inline-block;
     margin: 50px 0;
@@ -92,6 +96,9 @@ h3{
 	margin-top: 10px;
 }
 
+.speed {
+    font-weight: bold;
+}
 
 .time_result {
 	float: right;
@@ -110,17 +117,13 @@ h3{
 
 .row_odd {
 	background: white;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 2px;
+	padding: 5px;
 
 
 }
 .row_even {
 	background: #f3f3f3;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 2px;
+	padding: 5px;
 
 
 }

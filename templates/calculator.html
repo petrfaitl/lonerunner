@@ -83,7 +83,12 @@
 
 </form>
 			{% if output %}
-			<h3>Your calculated time over a set distances</h3>
+			{% if "s" in txtPace%}
+			<h4>Your calculations based on {{txtPace}} per {{selUnits}} are: </h4>
+			{% else %}
+			<h4>Your calculations based on {{txtPace}}mins per {{selUnits}} are: </h4>
+			{% endif %}
+
 			<p class="results">
 				
 				{% for x in output|dictsort(by='value') %}
