@@ -2,45 +2,73 @@
 
 {% block content %}
 <h2><span class="time"></span>Pace Calculator </h2>
+
 <form method="post" name="frm1">
 			
 			
-			<label>
-				<div class="pace">Pace/Time</div>
-				<input type="text" name="txtPace" autofocus="true" value="{{txtPace}}"/>
+			<label for="txtPace" class="pace">Pace or Time</label>
+				<input type="text" name="txtPace" id="txtPace" autofocus="true" placeholder="Time (hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
 				<div class="error">{{error}}</div>
-			</label>
 			
-			<label >
-				<div class="units">Units/Distance</div>
-				<input type="text" name="txtCustDistance"  value="{{txtCustDistance}}"/>
-				<select name="selCustDistance" selected="option0">
-					<option value="custDistance_km">km</option>
-					<option value="custDistance_miles">miles</option>
-
-				</select>
+			<div id="PreDistance" class="PreDistance">
+			<label for="selUnits" class="units">Units or Distance</label>
 				<select name="selUnits" id="selUnits">
-					<option selected value="{{selUnits}}">{{selUnits}}</option>
+					<!-- <option selected value="{{selUnits}}">{{selUnits}}</option> -->
+					<!-- <option value="">Select Units or Distance</option> -->
 					<optgroup label="By Pace">
-
-					<option value="min/km">min/km</option>
-					<option value="min/mile">min/mile</option>
+						<option value="min/km">min/km</option>
+						<option value="min/mile">min/mile</option>
 					</optgroup>
 					<optgroup label="By Distance">
 
-					<option value="400m">400m</option>
-					<option value="800m">800m</option>
-					<option value="1200m">1200m</option>
-					<option value="1500m">1500m</option>
-					<option value="1600m">1600m</option>
-					<option value="5k">5k</option>
-					<option value="10k">10k</option>
-					<option value="Half">Half</option>
-					<option value="Marathon">Marathon</option>					
+						<option value="400m">400m</option>
+						<option value="800m">800m</option>
+						<option value="1200m">1200m</option>
+						<option value="1500m">1500m</option>
+						<option value="1600m">1600m</option>
+						<option value="5k">5k</option>
+						<option value="10k">10k</option>
+						<option value="Half">Half</option>
+						<option value="Marathon">Marathon</option>					
 					</optgroup>
 				</select>
+			</div>
 				<div class="error">{{error_units}}</div>
-			</label>
+				
+<!-- custom distances -->
+			
+				<label for="flip-custom" id='lblCustomFlip'>Custom Distance</label>
+							<select name="flip-custom" id="flip-custom" data-role="slider" data-mini="true" data-track-theme="c" data-theme="c">
+						        <option value="off">Off</option>
+						        <option value="on">On</option>
+						    </select>
+			
+
+			<!-- <fieldset data-role="controlgroup"> -->
+			<div id="CustDistance" class="CustDistance hidden">
+			    <legend for="txtCustDistance">Distance</legend>
+			    <!-- <label for="txtCustDistance">Distance</label> -->
+				<input type="text" name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
+
+				<label for="selCustDistance" class="select">Units</label>
+					<select name="selCustDistance" id="selCustDistance">
+						<option value="custDistance_km">km</option>
+						<option value="custDistance_miles">miles</option>
+					</select>
+			</div>
+			<!-- </fieldset> -->
+
+		<script>
+		    $('#flip-custom').change(function() {
+		    var myswitch = $(this);
+		    var show     = myswitch[0].selectedIndex == 1 ? true:false;
+		    var hide     = myswitch[0].selectedIndex ==1 ? false:true;
+		    $('#CustDistance').toggle(show);
+		    $("#PreDistance").toggle(hide);
+			});
+		</script>
+
+			
 			
 			
 			<!-- <p class="clear"> -->
@@ -50,6 +78,7 @@
 			
 			<input type="submit" value="Calculate" class="button cyan"/>
 			<!-- <input type="button" name="clear" value="Clear" class="button cyan" onclick="ClearAllControls()"/> -->
+		
 			</p>
 
 </form>

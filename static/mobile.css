@@ -14,7 +14,6 @@
 * {
     margin:0;
     padding:0;
-    box-sizing: border-box; 
 
 }
 a {
@@ -39,7 +38,8 @@ body {
 
 h1 {
 	/*font-size: 30px;*/
-	margin: 0 auto;
+    text-align: center;
+
 	
 
 }
@@ -62,7 +62,7 @@ h1 span {
 h2{
 
 
-	margin-bottom: 20px;
+	margin: 20px 0 20px 0;
 }
 h2 span {
   font-family: 'EntypoRegular';
@@ -81,6 +81,11 @@ h3{
 
 }
 
+.units{
+    display: inline-block;
+    margin: 50px 0;
+}
+
 .results {
 
 	margin-bottom: 5px;
@@ -95,22 +100,15 @@ h3{
 
 
 
-
-
-
-
-select {
-
-	font-family: monospace;
-	
-
+.hidden{
+    display: none;
 }
 
+.show{
+    display: block;
+}
 
-
-
-
-div.row_odd {
+.row_odd {
 	background: white;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -118,8 +116,8 @@ div.row_odd {
 
 
 }
-div.row_even {
-	background: #eff8ff;
+.row_even {
+	background: #f3f3f3;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 2px;
@@ -139,6 +137,11 @@ div.error {
 	color:crimson;
 	font-size: 12px;
 	margin-top: 2px;
+
+}
+/*button formatting*/
+
+.ui-btn-inner {
 
 }
 
