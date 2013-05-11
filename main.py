@@ -17,7 +17,7 @@
 import os
 import webapp2
 import jinja2
-from libs.converters import converter
+from libs.converters import converter, paceunits
 from libs.validation import validate_input
 
 
@@ -33,6 +33,10 @@ class Handler(webapp2.RequestHandler):
 	def render(self, template, **kw):
 		self.write(self.render_str(template, **kw))
 
+class MainPage(Handler):
+	def get(self):
+		self.redirect("/pace-calculator")		
+
 class Calculator(Handler):
 	def get(self, selUnits = "Select Units"):
 		self.render("calculator.html", selUnits=selUnits)
@@ -41,29 +45,44 @@ class Calculator(Handler):
 	def post(self):
 		pace = self.request.get("txtPace")
 		units = self.request.get("selUnits")
+		cust_flip = self.request.get("flip-custom")
+		cust_distance = self.request.get("txtCustDistance")
+		cust_units = self.request.get("selCustUnits")
+
+
+		if cust_flip == "on":
+			units = cust_units
+			distance = cust_distance
+		else:
+			distance = None
 		
 		params = dict(selUnits = units,)
 
 		if not validate_input(pace):
 			params["txtPace"]= pace
 			params["error"] = "Enter valid time [hh:mm:ss or mm:ss]"
-		elif units == "Select Units":
+
+		elif not units:
 			params["error_units"] = "Select Units"
 			params["txtPace"]= pace
 		else:
 			params["txtPace"]= pace
-			params["output"], params["speed"], params["speed_miles"] = converter(pace,units)
+			params["paceunits"] = paceunits(str(pace))
+			params["output"], params["speed"], params["speed_miles"] = converter(pace,distance,units)
 
 
 		self.render("calculator.html", **params)
 
-
+class FAQ(Handler):
+	def get(self):
+		self.render("units-and-distances.html")
 
 
 
 
 
 app = webapp2.WSGIApplication([
-							('/main/', Handler),
-							('/', Calculator)
+							('/', MainPage),
+							('/units-and-distances/?', FAQ),
+							('/pace-calculator/?', Calculator)
 							], debug=True)

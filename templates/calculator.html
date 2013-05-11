@@ -1,21 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2><span class="time"></span>Pace Calculator </h2>
 
+
+<h2><span class="time"></span>Pace Calculator </h2>
 <form method="post" name="frm1">
-			
-			
-			<label for="txtPace" class="pace">Pace or Time</label>
-				<input type="text" name="txtPace" id="txtPace" autofocus="true" placeholder="Time (hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
+<!-- flip switch -->
+					
+			<div id="flipCustDistance" class="flipCustDistance">
+				
+				<div class="flipCustDistance-child"><label for="flip-custom" id='lblCustomFlip'>Custom <br>Distance</label></div>
+					<div class="flipCustDistance-child">
+						<select name="flip-custom" id="flip-custom" data-role="slider" data-mini="true" data-track-theme="c" data-theme="c">
+					        <option value="off">Off</option>
+					        <option value="on">On</option>
+					    </select>
+					</div>
+			</div>
+			<div class="clear"></div>
+			<div >
+				<legend>Time</legend>
+			<label for="txtPace" class="ui-hidden-accessible">Time</label>
+				<input type="text" name="txtPace" id="txtPace" autofocus="true" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
 				<div class="error">{{error}}</div>
+			</div>
 			
 			<div id="PreDistance" class="PreDistance">
-			<label for="selUnits" class="units">Units or Distance</label>
-				<select name="selUnits" id="selUnits">
-					<!-- <option selected value="{{selUnits}}">{{selUnits}}</option> -->
-					<!-- <option value="">Select Units or Distance</option> -->
-					<optgroup label="By Pace">
+				<legend>Distance</legend>
+			<label for="selUnits" class="units ui-hidden-accessible">Distance</label>
+				<select name="selUnits" id="selUnits" data-theme="c">
+					<option value="">Select Units</option>
+					{% if output %}
+						<optgroup label="Last Selected">
+							<option selected value="{{selUnits}}">{{selUnits}}</option>
+						</optgroup>
+					{% endif %}
+					
+					<optgroup label="By Pace" >
 						<option value="min/km">min/km</option>
 						<option value="min/mile">min/mile</option>
 					</optgroup>
@@ -37,57 +58,52 @@
 				
 <!-- custom distances -->
 			
-				<label for="flip-custom" id='lblCustomFlip'>Custom Distance</label>
-							<select name="flip-custom" id="flip-custom" data-role="slider" data-mini="true" data-track-theme="c" data-theme="c">
-						        <option value="off">Off</option>
-						        <option value="on">On</option>
-						    </select>
-			
+<!-- 			<div id="CustDistance" class="CustDistance ui-grid-a hidden"> 
+			   <legend>Distance</legend>
+			    <div class="ui-block-a">
+				    <label for="txtCustDistance" class="ui-hidden-accessible" >Distance</label> 
+					<input type="text"  name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
+				</div>
+				<div class="ui-block-b">
+					<label for="selCustUnits" class="ui-hidden-accessible">Units</label>
+						<select name="selCustUnits" id="selCustUnits">
+							<option value="">Units</option>
+							<option value="custDistance_km" selected="selected">km</option>
+							<option value="custDistance_miles">miles</option>
+						</select>
+				</div>
+			</div> -->
 
-			<!-- <fieldset data-role="controlgroup"> -->
-			<div id="CustDistance" class="CustDistance hidden">
-			    <legend for="txtCustDistance">Distance</legend>
-			    <!-- <label for="txtCustDistance">Distance</label> -->
-				<input type="text" name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
-
-				<label for="selCustDistance" class="select">Units</label>
-					<select name="selCustDistance" id="selCustDistance">
-						<option value="custDistance_km">km</option>
-						<option value="custDistance_miles">miles</option>
-					</select>
+			<div id="CustDistance" class="CustDistance hidden"> 
+			   
+			   <legend>Distance</legend>
+			   <div class="CustDistance-child">
+				    <label for="txtCustDistance" class="ui-hidden-accessible" >Distance</label> <!-- class="ui-hidden-accessible" -->
+					<input type="text"  name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
+				</div>
+				<div class="CustDistance-child right">
+					<label for="selCustUnits" class="ui-hidden-accessible">Units</label>
+						<select name="selCustUnits" id="selCustUnits">
+							<option value="">Units</option>
+							<option value="km" selected="selected">km</option>
+							<option value="miles">miles</option>
+						</select>
+				</div>
 			</div>
-			<!-- </fieldset> -->
 
-		<script>
-		    $('#flip-custom').change(function() {
-		    var myswitch = $(this);
-		    var show     = myswitch[0].selectedIndex == 1 ? true:false;
-		    var hide     = myswitch[0].selectedIndex ==1 ? false:true;
-		    $('#CustDistance').toggle(show);
-		    $("#PreDistance").toggle(hide);
-			});
-		</script>
+		<div class="clear"></div>
+
+
 
 			
+			<button type="submit" data-ajax="false" value="Calculate" /> Calculate</button>
+			<!-- <input type="button" name="clear" value="Clear"  onclick="ClearAllControls()"/> -->
 			
-			
-			<!-- <p class="clear"> -->
-
-			
-			
-			
-			<input type="submit" value="Calculate" class="button cyan"/>
-			<!-- <input type="button" name="clear" value="Clear" class="button cyan" onclick="ClearAllControls()"/> -->
-		
-			</p>
 
 </form>
 			{% if output %}
-			{% if "s" in txtPace%}
-			<h4>Your calculations based on {{txtPace}} per {{selUnits}} are: </h4>
-			{% else %}
-			<h4>Your calculations based on {{txtPace}}mins per {{selUnits}} are: </h4>
-			{% endif %}
+			<h4>Your calculations based on {{txtPace}}{{paceunits}} per {{selUnits}} are: </h4>
+			
 
 			<p class="results">
 				
@@ -102,7 +118,15 @@
 
 			</p>
 
-
+		<script>
+		    $('#flip-custom').change(function() {
+		    var myswitch = $(this);
+		    var show     = myswitch[0].selectedIndex == 1 ? true:false;
+		    var hide     = myswitch[0].selectedIndex ==1 ? false:true;
+		    $('#CustDistance').toggle(show);
+		    $("#PreDistance").toggle(hide);
+			});
+		</script>
 
 
 {% endblock %}
