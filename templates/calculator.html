@@ -2,129 +2,150 @@
 
 {% block content %}
 
-
-<h2><span class="time"></span>Pace Calculator </h2>
-<form method="post" name="frm1">
+<div class='inset'>
+	<h2><span class="time" ></span>Pace Calculator </h2>
+</div>
+	<form method="post" name="frm1">
 <!-- flip switch -->
-					
-			<div id="flipCustDistance" class="flipCustDistance">
-				
-				<div class="flipCustDistance-child"><label for="flip-custom" id='lblCustomFlip'>Custom <br>Distance</label></div>
-					<div class="flipCustDistance-child">
-						<select name="flip-custom" id="flip-custom" data-role="slider" data-mini="true" data-track-theme="c" data-theme="c">
-					        <option value="off">Off</option>
-					        <option value="on">On</option>
-					    </select>
+		<ul data-role="listview" data-inset="true">
+				<li data-role="fieldcontain">		
+					<div id="flipCustDistance" class="flipCustDistance">
+						
+						
+							<label for="flip-custom" id='lblCustomFlip'>Custom Distance</label>
+						
+							
+								<select name="flip-custom" id="flip-custom" data-role="slider" data-mini="true">
+									<option value="off">Off</option>
+									<option value="on">On</option>
+								</select>
+							
 					</div>
-			</div>
-			<div class="clear"></div>
-			<div >
-				<legend>Time</legend>
-			<label for="txtPace" class="ui-hidden-accessible">Time</label>
-				<input type="text" name="txtPace" id="txtPace" autofocus="true" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
-				<div class="error">{{error}}</div>
-			</div>
-			
-			<div id="PreDistance" class="PreDistance">
-				<legend>Distance</legend>
-			<label for="selUnits" class="units ui-hidden-accessible">Distance</label>
-				<select name="selUnits" id="selUnits" data-theme="c">
-					<option value="">Select Units</option>
-					{% if output %}
-						<optgroup label="Last Selected">
-							<option selected value="{{selUnits}}">{{selUnits}}</option>
-						</optgroup>
-					{% endif %}
+					</li>
+					<!-- <div class="clear"></div> -->
+				<div id="pace" class="pace">
+					<li data-role="fieldcontain">
+						
+						<label for="txtPace">Time</label> <!-- class="ui-hidden-accessible" -->
+						<input type="text" name="txtPace" id="txtPace" autofocus="true" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
+						<div class="error">{{error}}</div>
+					</li>
+				</div>
+				<div id="PreDistance" class="PreDistance">
+					<li data-role="fieldcontain">
 					
-					<optgroup label="By Pace" >
-						<option value="min/km">min/km</option>
-						<option value="min/mile">min/mile</option>
-					</optgroup>
-					<optgroup label="By Distance">
+					<label for="selUnits">Distance</label>
+					<select name="selUnits" id="selUnits">
+						<option value="">Select Units</option>
+						{% if output %}
+							<optgroup label="Last Selected">
+								<option selected value="{{selUnits}}">{{selUnits}}</option>
+							</optgroup>
+						{% endif %}
+						
+						<optgroup label="By Pace" >
+							<option value="min/km">min/km</option>
+							<option value="min/mile">min/mile</option>
+						</optgroup>
+						<optgroup label="By Distance">
 
-						<option value="400m">400m</option>
-						<option value="800m">800m</option>
-						<option value="1200m">1200m</option>
-						<option value="1500m">1500m</option>
-						<option value="1600m">1600m</option>
-						<option value="5k">5k</option>
-						<option value="10k">10k</option>
-						<option value="Half">Half</option>
-						<option value="Marathon">Marathon</option>					
-					</optgroup>
-				</select>
-			</div>
-				<div class="error">{{error_units}}</div>
+							<option value="400m">400m</option>
+							<option value="800m">800m</option>
+							<option value="1200m">1200m</option>
+							<option value="1500m">1500m</option>
+							<option value="1600m">1600m</option>
+							<option value="5k">5k</option>
+							<option value="10k">10k</option>
+							<option value="Half">Half</option>
+							<option value="Marathon">Marathon</option>					
+						</optgroup>
+					</select>
+					
+					</li>
+				</div>
+					
+					
 				
 <!-- custom distances -->
 			
-<!-- 			<div id="CustDistance" class="CustDistance ui-grid-a hidden"> 
-			   <legend>Distance</legend>
-			    <div class="ui-block-a">
-				    <label for="txtCustDistance" class="ui-hidden-accessible" >Distance</label> 
-					<input type="text"  name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
-				</div>
-				<div class="ui-block-b">
-					<label for="selCustUnits" class="ui-hidden-accessible">Units</label>
-						<select name="selCustUnits" id="selCustUnits">
-							<option value="">Units</option>
-							<option value="custDistance_km" selected="selected">km</option>
-							<option value="custDistance_miles">miles</option>
-						</select>
-				</div>
-			</div> -->
+					<div id="CustDistance" class="CustDistance hidden"> 
+					<li> 
+						<fieldset class="ui-grid-a">
+							<div class="ui-block-a">
+							<label for="txtCustDistance">Distance</label> 
+								<input type="text"  name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
+							</div>
+							<div class="ui-block-b">
+								<label for="selCustUnits" >Units</label>
+									<select name="selCustUnits" id="selCustUnits">
+										<option value="">Units</option>
+										<option value="custDistance_km" selected="selected">km</option>
+										<option value="custDistance_miles">miles</option>
+									</select>
+							</div>
+						</fieldset>
+					
+					</li>
+					</div>
+					<div class="error">{{error_units}}</div>
 
-			<div id="CustDistance" class="CustDistance hidden"> 
-			   
-			   <legend>Distance</legend>
-			   <div class="CustDistance-child">
-				    <label for="txtCustDistance" class="ui-hidden-accessible" >Distance</label> <!-- class="ui-hidden-accessible" -->
-					<input type="text"  name="txtCustDistance" id="txtCustDistance" placeholder="Enter Distance" data-clear-btn="true" value="{{txtCustDistance}}"/>
-				</div>
-				<div class="CustDistance-child right">
-					<label for="selCustUnits" class="ui-hidden-accessible">Units</label>
-						<select name="selCustUnits" id="selCustUnits">
-							<option value="">Units</option>
-							<option value="km" selected="selected">km</option>
-							<option value="miles">miles</option>
-						</select>
-				</div>
+			<li> 
+				<fieldset class="ui-grid-solo">
+					<div class="ui-block-a">
+					<button type="submit"  value="Calculate">Calculate</button> 
+					<!-- <input type="button" name="clear" value="Clear"  onclick="ClearAllControls()"/> -->
+					</div>
+				</fieldset>			
+			</li>
+		</ul>
+	</form>
+
+			<div class='inset'>
+				{% if output %}
+				<h3>Your calculations based on {{txtPace}}{{paceunits}} per {{selUnits}} are: </h3>
+				
+
+				<!-- <p class="results"> -->
+					
+<!-- 					{% for x in output|dictsort(by='value') %}
+
+					<div class="{{ loop.cycle('row_odd', 'row_even') }}">{{x[0]}}<span class="time_result">{{x[1][1]}}</span></div>
+					{% endfor %} -->
+
+
+					
+					<table data-role="table" id="table-column-toggle" data-mode='columntoggle' class="ui-responsive table-stroke">
+						<thead>
+							<tr>
+								<th>Distance</th>
+								<th>Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for x in output|dictsort(by='value') %}
+							<tr>
+						
+								<td>{{x[0]}}</td><td>{{x[1][1]}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					
+					<br>
+				<span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span>
+				<!-- </p> -->
+				{%endif %}
 			</div>
 
-		<div class="clear"></div>
-
-
-
-			
-			<button type="submit" data-ajax="false" value="Calculate" /> Calculate</button>
-			<!-- <input type="button" name="clear" value="Clear"  onclick="ClearAllControls()"/> -->
-			
-
-</form>
-			{% if output %}
-			<h4>Your calculations based on {{txtPace}}{{paceunits}} per {{selUnits}} are: </h4>
-			
-
-			<p class="results">
-				
-				{% for x in output|dictsort(by='value') %}
-
-				<div class="{{ loop.cycle('row_odd', 'row_even') }}">{{x[0]}}<span class="time_result">{{x[1][1]}}</span></div>
-				{% endfor %}<br>
-			<span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span>
-
-			{%endif %}
-
-
-			</p>
 
 		<script>
-		    $('#flip-custom').change(function() {
-		    var myswitch = $(this);
-		    var show     = myswitch[0].selectedIndex == 1 ? true:false;
-		    var hide     = myswitch[0].selectedIndex ==1 ? false:true;
-		    $('#CustDistance').toggle(show);
-		    $("#PreDistance").toggle(hide);
+			$('#flip-custom').change(function() {
+			var myswitch = $(this);
+			var show     = myswitch[0].selectedIndex == 1 ? true:false;
+			var hide     = myswitch[0].selectedIndex ==1 ? false:true;
+			$('#CustDistance').toggle(show);
+			$("#PreDistance").toggle(hide);
 			});
 		</script>
 

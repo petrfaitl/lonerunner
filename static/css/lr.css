@@ -1,0 +1,25 @@
+.lone-runner-ico:before {
+  background-image: url( "/static/webfurniture/sole-bk.png" );
+  background-size: 18px 18px;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .lone-runner-ico:before {
+    background-image: url( "/static/webfurniture/sole-bk-HD.png" );
+    background-size: 18px 18px;
+  }
+  
+}
+
+
+
+.PreDistance, .CustDistance, .pace {
+	display: block;
+	padding: 0.7em 15px;
+}
+.hidden {
+	display: none;
+}
+td{
+	width: 50%;
+}

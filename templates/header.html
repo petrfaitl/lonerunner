@@ -1,26 +1,28 @@
-<div data-role="panel" id="mypanel" data-theme="c">
-        <ul>
-            <li>
-                <a class="nav1" href="#">Coming New</a>
+<div data-role="panel" id="mypanel" data-theme="b">
+        <ul data-role="listview">
+            <li data-role="list-divider"><a  href="/pace-calculator/">Home</a></li>
+            <li data-icon="time">
+                <a  href="/pace-calculator/">Pace Calculator</a>
             </li>
-            <li>
-                <a class="nav2" href="#">Units</a>
+            <li data-icon="book">
+                <a  href="/units-and-distances/">Units &amp; Distances</a>
             </li>
-            <li>
-                <a class="nav3" href="#">Share</a>
+            <li data-icon="share">
+                <a  href="/share/">Share</a>
             </li>
-            <li>
-                <a class="nav4" href="#">About</a>
+            <li data-icon="info-sign">
+                <a href="/credits/">Licenses &amp; Credits</a>
             </li>
         </ul>
     </div>
 
 
-<div data-role="header" data-theme="c" data-position="fixed" class="main-header">
-<a href="#mypanel" data-role='button' data-icon='tasks' data-iconpos='left' data-inline='true'>Open panel</a>
-<h1 class="main-title">LoneRunner<span><img src="/static/webfurniture/sole_white.png" ></span></h1>
+<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
+    
+    <a href="#mypanel" data-ajax="false"><i class='icon-angle-left'></i></a>
+    <h1>LoneRunner</h1>
 
-    <a href="#" data-icon="gear" class="ui-btn-right" data-theme="a">Menu</a>
+    <a href="#" ><i class='ellipsis-vertical'></i>Menu</a> <!-- data-icon="gear" class="ui-btn-right" -->
 
 
 
