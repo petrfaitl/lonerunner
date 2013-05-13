@@ -20,9 +20,7 @@
 .hidden {
 	display: none;
 }
-td{
-	width: 50%;
-}
+
 
 .collapse-legend {
 	max-width: 340px;
@@ -37,4 +35,7 @@ legend {
 
 h3 {
 	padding: 10px 0 10px 0;
+}
+th.right, td.right {
+	text-align: right;
 }
