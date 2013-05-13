@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='inset'>
+	<h3>Cusomise your Preferences</h3> <!-- <span class="time" ></span> -->
+</div>
+<div class='inset'>
+
+	<form>
+        <ul data-role="listview" data-inset="true">
+
+			<li id="chkDefaultUnits" data-role="fieldcontain">
+		            <fieldset data-role="controlgroup" data-type="vertical" >
+		                <legend>
+		                    Select default units
+		                </legend>
+		                <input id="checkbox2" name="km" type="checkbox">
+		                <label for="checkbox2">
+		                    km
+		                </label>
+		                <input id="checkbox6" name="miles" type="checkbox">
+		                <label for="checkbox6">
+		                    miles
+		                </label>
+		            </fieldset>
+		        </li>
+		        <li id="checkboxes3" data-role="fieldcontain">
+		            <fieldset data-role="controlgroup" data-type="vertical" >
+		            	<legend class="collapse-legend">
+		                    &nbsp;
+		                </legend>
+		                <input id="checkbox3" name="chkDefaultCustDist" type="checkbox">
+		                <label for="checkbox3">
+		                    Activate custom distance
+		                </label>
+		            </fieldset>
+		        </li>
+		        <li id="checkboxes4" data-role="fieldcontain">
+		            <fieldset data-role="controlgroup" data-type="vertical" >
+		            	<legend class="collapse-legend">
+		                    &nbsp;
+		                </legend>
+		                <input id="checkbox4" name="chk3" type="checkbox">
+		                <label for="checkbox4">
+		                    chk3
+		                </label>
+		            </fieldset>
+		        </li>
+		        <li id="checkboxes5" data-role="fieldcontain">
+		            <fieldset data-role="controlgroup" data-type="vertical" >
+		                <legend>
+		                    Title for checks
+		                </legend>
+		                <input id="checkbox5" name="chkopt1" type="checkbox">
+		                <label for="checkbox5">
+		                    option1
+		                </label>
+		                <input id="checkbox7" name="chkopt2" type="checkbox">
+		                <label for="checkbox7">
+		                    option2
+		                </label>
+		                <input id="checkbox8" name="chkopt3" type="checkbox">
+		                <label for="checkbox8">
+		                    option3
+		                </label>
+		            </fieldset>
+		        </li>
+		        <li>
+                        <fieldset class="ui-grid-a">
+                                <div class="ui-block-a"><button type="submit" data-theme="b">Cancel</button></div>
+                                <div class="ui-block-b"><button type="submit" data-theme="b">Submit</button></div>
+                        </fieldset>
+                    </li>
+
+		    </ul>
+    </div>
+
+		<script>
+
+
+
+		$('#checkbox2').click(function () {
+        if ($(this).is(':checked')) {
+        $('#CustDistance').removeClass("hidden");
+		$("#PreDistance").addClass("hidden");
+        } else {
+        $('#CustDistance').addClass("hidden");
+		$("#PreDistance").removeClass("hidden");
+        }
+		});
+
+		</script>
+
+
+{% endblock %}

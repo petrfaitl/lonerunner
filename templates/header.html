@@ -9,8 +9,19 @@
 </div>
 
 
+
+<div data-role="popup" id="menu">
+    <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
+                    
+                    <li><a href="/settings/">Settings</a></li>
+                    <li><a href="/help/">Help</a></li>
+                    <li><a href="/about/">Send Feedback</a></li>
+                </ul>
+</div>
+
+
 <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
     <a href="#mypanel"><i class='icon-angle-left'></i></a>
     <h1>{{pageTitle}}</h1>
-    <a href="#" class="ui-btn-right"><i class='icon-ellipsis-vertical'></i></a>
+    <a href="#menu" data-rel="popup" data-inline="true" class="ui-btn-right"><i class='icon-ellipsis-vertical'></i></a>
 </div>
