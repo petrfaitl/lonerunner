@@ -39,7 +39,7 @@ class MainPage(Handler):
 
 class Calculator(Handler):
 	def get(self, selUnits = "Select Units"):
-		self.render("calculator.html", selUnits=selUnits)
+		self.render("calculator.html", selUnits=selUnits, pageTitle = "Pace Calculator" )
 
 
 	def post(self):
@@ -75,14 +75,27 @@ class Calculator(Handler):
 
 class FAQ(Handler):
 	def get(self):
-		self.render("units-and-distances.html")
+		self.render("units-and-distances.html", pageTitle = "Units and Distances")
+
+class Credits(Handler):
+	def get(self):
+		self.render("credits.html", pageTitle = "Licenses & Credits")
 
 
+class Share(Handler):
+	def get(self):
+		self.render("share.html", pageTitle = "Share")
 
+class Settings(Handler):
+	def get(self):
+		self.render("settings.html", pageTitle = "Settings")
 
 
 app = webapp2.WSGIApplication([
 							('/', MainPage),
 							('/units-and-distances/?', FAQ),
-							('/pace-calculator/?', Calculator)
+							('/pace-calculator/?', Calculator),
+							('/credits/?', Credits),
+							('/share/?', Share),
+							('/settings/?', Settings)
 							], debug=True)

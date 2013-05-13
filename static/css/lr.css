@@ -13,7 +13,7 @@
 
 
 
-.PreDistance, .CustDistance, .pace {
+.PreDistance, .CustDistance, .pace, .flipCustDistance, .submit-block, .chkCustDist {
 	display: block;
 	padding: 0.7em 15px;
 }
@@ -22,4 +22,19 @@
 }
 td{
 	width: 50%;
+}
+
+.collapse-legend {
+	max-width: 340px;
+	display: none;
+
+}
+
+legend {
+	font-weight: 400;
+	padding-left: 0;
+}
+
+h3 {
+	padding: 10px 0 10px 0;
 }
