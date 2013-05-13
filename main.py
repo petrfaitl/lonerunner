@@ -56,7 +56,7 @@ class Calculator(Handler):
 		else:
 			distance = None
 		
-		params = dict(selUnits = units,)
+		params = dict(selUnits = units, pageTitle = "Pace Calculator")
 
 		if not validate_input(pace):
 			params["txtPace"]= pace
