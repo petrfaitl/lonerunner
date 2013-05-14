@@ -39,7 +39,7 @@ class MainPage(Handler):
 
 class Calculator(Handler):
 	def get(self, selUnits = "Select Units"):
-		self.render("calculator.html", selUnits=selUnits, pageTitle = "Pace Calculator" )
+		self.render("calculator.html", selUnits=selUnits, )
 
 
 	def post(self):
@@ -56,7 +56,7 @@ class Calculator(Handler):
 		else:
 			distance = None
 		
-		params = dict(selUnits = units, pageTitle = "Pace Calculator")
+		params = dict(selUnits = units)
 
 		if not validate_input(pace):
 			params["txtPace"]= pace
@@ -75,20 +75,43 @@ class Calculator(Handler):
 
 class FAQ(Handler):
 	def get(self):
-		self.render("units-and-distances.html", pageTitle = "Units and Distances")
+		self.render("units-and-distances.html")
 
 class Credits(Handler):
 	def get(self):
-		self.render("credits.html", pageTitle = "Licenses & Credits")
+		self.render("credits.html")
 
 
 class Share(Handler):
 	def get(self):
-		self.render("share.html", pageTitle = "Share")
+		self.render("share.html")
 
 class Settings(Handler):
 	def get(self):
-		self.render("settings.html", pageTitle = "Settings")
+		user_settings = {}
+		self.render("settings.html",  **user_settings)
+
+	def post(self):
+		user_units = self.request.get("rdioDefaultUnits")
+		user_settings = {}
+		if user_units == "miles":
+			user_settings["mileschecked"] = 'checked="checked"'
+		else:
+			user_settings["kmchecked"] = 'checked="checked"'
+
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Path=/" %("rdioDefaultUnits", str(user_units)))
+
+
+
+
+		self.render("settings.html",  **user_settings)
+
+
+
+
+
+
+
 
 
 app = webapp2.WSGIApplication([

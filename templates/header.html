@@ -1,3 +1,7 @@
+
+
+
+
 <div data-role="panel" id="mypanel" data-theme="b">
         <ul data-role="listview">
             <li data-role="list-divider"><a href="/pace-calculator/">LoneRunner</a></li>
@@ -22,6 +26,8 @@
 
 <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
     <a href="#mypanel"><i class='icon-angle-left'></i></a>
-    <h1>{{pageTitle}}</h1>
+    <h1>{% block h1 %} {% endblock %}</h1> <!-- {{pageTitle}} -->
     <a href="#menu" data-rel="popup" data-inline="true" class="ui-btn-right"><i class='icon-ellipsis-vertical'></i></a>
 </div>
+
+

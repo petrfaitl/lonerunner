@@ -39,3 +39,7 @@ h3 {
 th.right, td.right {
 	text-align: right;
 }
+
+.submitted {
+	color: blue;
+}

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Settings{% endblock %}
+
 {% block content %}
 
 <div class='inset'>
@@ -7,20 +9,20 @@
 </div>
 <div class='inset'>
 
-	<form>
+	<form method="post">
         <ul data-role="listview" data-inset="true">
 
-			<li id="chkDefaultUnits" data-role="fieldcontain">
+			<li id="rdioDefaultUnits-set" data-role="fieldcontain">
 		            <fieldset data-role="controlgroup" data-type="vertical" >
 		                <legend>
 		                    Select default units
 		                </legend>
-		                <input id="checkbox2" name="km" type="checkbox">
-		                <label for="checkbox2">
+		                <input id="rdioDefaultUnits-km" name="rdioDefaultUnits" value="km" {{kmchecked}} type="radio">
+		                <label for="rdioDefaultUnits-km">
 		                    km
 		                </label>
-		                <input id="checkbox6" name="miles" type="checkbox">
-		                <label for="checkbox6">
+		                <input id="rdioDefaultUnits-miles" name="rdioDefaultUnits" value="miles" {{mileschecked}} type="radio">
+		                <label for="rdioDefaultUnits-miles">
 		                    miles
 		                </label>
 		            </fieldset>
@@ -30,7 +32,7 @@
 		            	<legend class="collapse-legend">
 		                    &nbsp;
 		                </legend>
-		                <input id="checkbox3" name="chkDefaultCustDist" type="checkbox">
+		                <input id="checkbox3" name="chkDefaultCustDist" {{custdistancechecked}} type="checkbox">
 		                <label for="checkbox3">
 		                    Activate custom distance
 		                </label>
@@ -41,7 +43,7 @@
 		            	<legend class="collapse-legend">
 		                    &nbsp;
 		                </legend>
-		                <input id="checkbox4" name="chk3" type="checkbox">
+		                <input id="checkbox4" name="chk4" {{chkbox4_checked}} type="checkbox">
 		                <label for="checkbox4">
 		                    chk3
 		                </label>
@@ -52,15 +54,15 @@
 		                <legend>
 		                    Title for checks
 		                </legend>
-		                <input id="checkbox5" name="chkopt1" type="checkbox">
+		                <input id="checkbox5" name="chkopt1" {{chkbox5_checked}} type="checkbox">
 		                <label for="checkbox5">
 		                    option1
 		                </label>
-		                <input id="checkbox7" name="chkopt2" type="checkbox">
+		                <input id="checkbox7" name="chkopt2" {{chkbox6_checked}} type="checkbox">
 		                <label for="checkbox7">
 		                    option2
 		                </label>
-		                <input id="checkbox8" name="chkopt3" type="checkbox">
+		                <input id="checkbox8" name="chkopt3" {{chkbox7_checked}} type="checkbox">
 		                <label for="checkbox8">
 		                    option3
 		                </label>
@@ -68,8 +70,9 @@
 		        </li>
 		        <li>
                         <fieldset class="ui-grid-a">
-                                <div class="ui-block-a"><button type="submit" data-theme="b">Cancel</button></div>
-                                <div class="ui-block-b"><button type="submit" data-theme="b">Submit</button></div>
+                                <div class="ui-block-a"><a href="/" data-role="button"> Cancel</a><!-- <button type="submit" value="cancel" id="cancel_button" data-theme="b">Cancel</button> --></div>
+                                <div class="ui-block-b"><input type="submit" id="save_button" value="Save" /> </div>
+                                <span id="response"></span>
                         </fieldset>
                     </li>
 
@@ -79,18 +82,13 @@
 		<script>
 
 
+		$('form').submit(function (){
+			$("#response").text("Saved").show().fadeOut(5000);
+			$("#save_button").prop("value","Saved").fadeOut(5000);
+			
 
-		$('#checkbox2').click(function () {
-        if ($(this).is(':checked')) {
-        $('#CustDistance').removeClass("hidden");
-		$("#PreDistance").addClass("hidden");
-        } else {
-        $('#CustDistance').addClass("hidden");
-		$("#PreDistance").removeClass("hidden");
-        }
 		});
 
 		</script>
-
-
 {% endblock %}
+
