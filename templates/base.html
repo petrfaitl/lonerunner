@@ -39,7 +39,7 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script> 
-	{% block script %}{% endblock %}
+	
 
 	<script type='text/javascript'>
 
@@ -81,11 +81,11 @@
 
 <div data-role="panel" id="mypanel" data-theme="b">
         <ul data-role="listview">
-            <li data-role="list-divider"><a href="/pace-calculator/">LoneRunner</a></li>
-            <li data-icon="time"><a href="/pace-calculator/">Pace Calculator</a></li>
-            <li data-icon="book"><a href="/units-and-distances/">Units &amp; Distances</a></li>
-            <li data-icon="share"><a href="/share/">Share</a></li>
-            <li data-icon="info-sign"><a href="/credits/">Licenses &amp; Credits</a></li>
+            <li data-role="list-divider" data-ajax="false"><a href="/pace-calculator/">LoneRunner</a></li>
+            <li data-icon="time" data-ajax="false"><a href="/pace-calculator/">Pace Calculator</a></li>
+            <li data-icon="book" data-ajax="false"><a href="/units-and-distances/">Units &amp; Distances</a></li>
+            <li data-icon="share" data-ajax="false"><a href="/share/">Share</a></li>
+            <li data-icon="info-sign" data-ajax="false"><a href="/credits/">Licenses &amp; Credits</a></li>
         </ul>
 </div>
 
@@ -94,9 +94,9 @@
 <div data-role="popup" id="menu">
     <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
                     
-                    <li><a href="/settings/">Settings</a></li>
-                    <li><a href="/help/">Help</a></li>
-                    <li><a href="/about/">Send Feedback</a></li>
+                    <li><a href="/settings/" data-ajax="false">Settings</a></li>
+                    <li><a href="/help/" data-ajax="false">Help</a></li>
+                    <li><a href="/about/" data-ajax="false">Send Feedback</a></li>
                 </ul>
 </div>
 
@@ -104,7 +104,7 @@
 <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
     <a href="#mypanel"><i class='icon-angle-left'></i></a>
     <h1>{{ self.title() }}</h1> 
-    <a href="#menu" data-rel="popup" data-inline="true" class="ui-btn-right"><i class='icon-ellipsis-vertical'></i></a>
+    <a href="#menu" data-rel="popup" data-inline="true"  class="ui-btn-right"><i class='icon-ellipsis-vertical'></i></a>
 </div>
 	
 

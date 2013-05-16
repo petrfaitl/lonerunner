@@ -17,8 +17,10 @@
 import os
 import webapp2
 import jinja2
+import datetime
 from libs.converters import converter, paceunits
 from libs.validation import validate_input
+from libs.cookies import serialise_cookies, deserialise_cookies
 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
@@ -32,6 +34,23 @@ class Handler(webapp2.RequestHandler):
 		return t.render(params)
 	def render(self, template, **kw):
 		self.write(self.render_str(template, **kw))
+
+
+	def set_cookie(self, cookie_key, value_set):
+		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
+		serial_cookies = serialise_cookies(value_set)
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= .lone-runner.appspot.com; Path=/" %(cookie_key, serial_cookies)) #; Domain= .lone-runner.appspot.com;
+	
+	def read_cookie(self, cookie_name):
+		cookie_val = self.request.cookies.get(cookie_name)
+		value_set = deserialise_cookies(cookie_val)
+		return value_set
+	
+	def get_user_prefs(self):
+		user_settings = {}
+		user_prefs = self.read_cookie("user_prefs")
+		user_settings = dict.fromkeys(user_prefs, 'checked="checked"')
+		return user_settings
 
 class MainPage(Handler):
 	def get(self):
@@ -88,23 +107,27 @@ class Share(Handler):
 
 class Settings(Handler):
 	def get(self):
-		user_settings = {}
+
+		user_settings= self.get_user_prefs()
+		
 		self.render("settings.html",  **user_settings)
+
 
 	def post(self):
-		user_units = self.request.get("rdioDefaultUnits")
-		user_settings = {}
-		if user_units == "miles":
-			user_settings["mileschecked"] = 'checked="checked"'
-		else:
-			user_settings["kmchecked"] = 'checked="checked"'
+		user_prefs = {}
+		rdioDefaultUnits_value = self.request.get("rdioDefaultUnits")
+		if rdioDefaultUnits_value:
+			user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "True" 
 
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Path=/" %("rdioDefaultUnits", str(user_units)))
+		chkDefaultCustDist = self.request.get("chkDefaultCustDist")
+		if chkDefaultCustDist:
+			user_prefs["chkDefaultCustDist"] = "True"
+		
+		self.set_cookie("user_prefs",user_prefs)
+		user_settings = self.get_user_prefs()
+		
 
-
-
-
-		self.render("settings.html",  **user_settings)
+		self.redirect("/settings/")
 
 
 

@@ -20,7 +20,9 @@
 .hidden {
 	display: none;
 }
-
+#ul-settings > li.hide {
+	visibility: hidden;
+}
 
 .collapse-legend {
 	max-width: 340px;

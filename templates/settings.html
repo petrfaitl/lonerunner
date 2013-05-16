@@ -5,24 +5,28 @@
 {% block content %}
 
 <div class='inset'>
-	<h3>Cusomise your Preferences</h3> <!-- <span class="time" ></span> -->
+	<h3>Customise your preferences</h3> <!-- <span class="time" ></span> -->
 </div>
 <div class='inset'>
 
 	<form method="post">
-        <ul data-role="listview" data-inset="true">
+        <ul data-role="listview" id="ul-settings" data-inset="true">
 
 			<li id="rdioDefaultUnits-set" data-role="fieldcontain">
 		            <fieldset data-role="controlgroup" data-type="vertical" >
 		                <legend>
 		                    Select default units
 		                </legend>
-		                <input id="rdioDefaultUnits-km" name="rdioDefaultUnits" value="km" {{kmchecked}} type="radio">
-		                <label for="rdioDefaultUnits-km">
+		                {% if not user_settings %}
+		                <input id="rdioDefaultUnits_km" name="rdioDefaultUnits" value="km" checked="checked" type="radio">
+		                {% else %}
+		                <input id="rdioDefaultUnits_km" name="rdioDefaultUnits" value="km" {{rdioDefaultUnits_km}} type="radio">
+		                {% endif %}
+		                <label for="rdioDefaultUnits_km">
 		                    km
 		                </label>
-		                <input id="rdioDefaultUnits-miles" name="rdioDefaultUnits" value="miles" {{mileschecked}} type="radio">
-		                <label for="rdioDefaultUnits-miles">
+		                <input id="rdioDefaultUnits_miles" name="rdioDefaultUnits" value="miles" {{rdioDefaultUnits_miles}} type="radio">
+		                <label for="rdioDefaultUnits_miles">
 		                    miles
 		                </label>
 		            </fieldset>
@@ -32,25 +36,25 @@
 		            	<legend class="collapse-legend">
 		                    &nbsp;
 		                </legend>
-		                <input id="checkbox3" name="chkDefaultCustDist" {{custdistancechecked}} type="checkbox">
-		                <label for="checkbox3">
+		                <input id="chkDefaultCustDist" name="chkDefaultCustDist" {{chkDefaultCustDist}} type="checkbox">
+		                <label for="chkDefaultCustDist">
 		                    Activate custom distance
 		                </label>
 		            </fieldset>
 		        </li>
-		        <li id="checkboxes4" data-role="fieldcontain">
+		        <li id="checkboxes4" data-role="fieldcontain" class="hide">
 		            <fieldset data-role="controlgroup" data-type="vertical" >
 		            	<legend class="collapse-legend">
 		                    &nbsp;
 		                </legend>
-		                <input id="checkbox4" name="chk4" {{chkbox4_checked}} type="checkbox">
+		                <input id="checkbox4" name="chk4"  {{chkbox4}} type="checkbox">
 		                <label for="checkbox4">
 		                    chk3
 		                </label>
 		            </fieldset>
 		        </li>
-		        <li id="checkboxes5" data-role="fieldcontain">
-		            <fieldset data-role="controlgroup" data-type="vertical" >
+		        <li id="checkboxes5" data-role="fieldcontain" class="hide">
+		            <fieldset data-role="controlgroup"  data-type="vertical" >
 		                <legend>
 		                    Title for checks
 		                </legend>
