@@ -39,7 +39,7 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= .lone-runner.appspot.com; Path=/" %(cookie_key, serial_cookies)) #; Domain= .lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
