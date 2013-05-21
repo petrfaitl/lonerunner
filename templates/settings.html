@@ -17,11 +17,10 @@
 		                <legend>
 		                    Select default units
 		                </legend>
-		                {% if not user_settings %}
-		                <input id="rdioDefaultUnits_km" name="rdioDefaultUnits" value="km" checked="checked" type="radio">
-		                {% else %}
+		               
+		                
 		                <input id="rdioDefaultUnits_km" name="rdioDefaultUnits" value="km" {{rdioDefaultUnits_km}} type="radio">
-		                {% endif %}
+		                
 		                <label for="rdioDefaultUnits_km">
 		                    km
 		                </label>
@@ -75,7 +74,7 @@
 		        <li>
                         <fieldset class="ui-grid-a">
                                 <div class="ui-block-a"><a href="/" data-role="button"> Cancel</a><!-- <button type="submit" value="cancel" id="cancel_button" data-theme="b">Cancel</button> --></div>
-                                <div class="ui-block-b"><input type="submit" id="save_button" value="Save" /> </div>
+                                <div class="ui-block-b"><input type="submit"  id="save_button" value="Save" /> </div>
                                 <span id="response"></span>
                         </fieldset>
                     </li>
@@ -83,6 +82,29 @@
 		    </ul>
     </div>
 
+
+<script>
+	$(document).on("pageinit",function() {
+    	var defCustDistance = "{{chkDefaultCustDist}}";
+    	var defMileUnits = "{{rdioDefaultUnits_miles}}";
+    	
+    	console.log("defCustDistance is: %s and defMileUnits is %s", defCustDistance, defMileUnits)
+    	if (defCustDistance) {
+    		$('#chkDefaultCustDist').prop("checked",true);
+    		$('#chkDefaultCustDist').checkboxradio('refresh');
+    		
+    	}
+	    if (defMileUnits){
+			$('#rdioDefaultUnits_miles').prop("checked",true).checkboxradio('refresh');
+			console.log("been ere");
+		} else {
+			$('#rdioDefaultUnits_km').prop("checked",true).checkboxradio('refresh');
+		}
+		
+	
+});
+
+</script>
 		<script>
 
 

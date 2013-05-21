@@ -21,6 +21,7 @@ import datetime
 from libs.converters import converter, paceunits
 from libs.validation import validate_input
 from libs.cookies import serialise_cookies, deserialise_cookies
+import logging
 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
@@ -39,7 +40,7 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
@@ -48,8 +49,8 @@ class Handler(webapp2.RequestHandler):
 	
 	def get_user_prefs(self):
 		user_settings = {}
-		user_prefs = self.read_cookie("user_prefs")
-		user_settings = dict.fromkeys(user_prefs, 'checked="checked"')
+		user_settings = self.read_cookie("user_prefs") #change user_prefs > user_settings
+		# user_settings = dict.fromkeys(user_prefs, 'checked="checked"') #convering true values to checked boxes
 		return user_settings
 
 class MainPage(Handler):
@@ -58,7 +59,8 @@ class MainPage(Handler):
 
 class Calculator(Handler):
 	def get(self, selUnits = "Select Units"):
-		self.render("calculator.html", selUnits=selUnits, )
+		user_settings = self.get_user_prefs()
+		self.render("calculator.html", selUnits=selUnits, **user_settings )
 
 
 	def post(self):
@@ -66,7 +68,9 @@ class Calculator(Handler):
 		units = self.request.get("selUnits")
 		cust_flip = self.request.get("flip-custom")
 		cust_distance = self.request.get("txtCustDistance")
-		cust_units = self.request.get("selCustUnits")
+		cust_units = self.request.get("customUnits")
+
+		logging.error("value of my cust_units is %s", str(cust_units))
 
 
 		if cust_flip == "on":
@@ -117,17 +121,17 @@ class Settings(Handler):
 		user_prefs = {}
 		rdioDefaultUnits_value = self.request.get("rdioDefaultUnits")
 		if rdioDefaultUnits_value:
-			user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "True" 
+			user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "true" 
 
 		chkDefaultCustDist = self.request.get("chkDefaultCustDist")
 		if chkDefaultCustDist:
-			user_prefs["chkDefaultCustDist"] = "True"
+			user_prefs["chkDefaultCustDist"] = "true"
 		
 		self.set_cookie("user_prefs",user_prefs)
 		user_settings = self.get_user_prefs()
 		
-
-		self.redirect("/settings/")
+		#self.render("settings.html",  **user_settings)
+		self.redirect("/")
 
 
 

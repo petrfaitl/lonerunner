@@ -39,41 +39,13 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script> 
+
+    <script>
+    $.mobile.ajaxEnabled = false;
+    </script>
+
+ 
 	
-
-	<script type='text/javascript'>
-
- 
-        function ClearAllControls() {
-        	{
-              for (i=0; i<document.forms[0].length; i++)
-              {
-                    doc = document.forms[0].elements[i];
-                    switch (doc.type) 
-                    {
-                        case "text" :
-                                doc.value = "";
-                                break;
-               
-                          case "select-one" :
-                                var myselect=document.getElementById("selUnits")
-
-						        myselect.add(new Option("Select Units", "Select Units"), myselect.options[0])
-						        myselect.remove(myselect.options[1])
-                                break;                      
-
-                                    
-                          default :
-                                break;
-                    }
-              }
-        }
-
-	        
-	  		
-	}
- 
-	</script>
 </head>
 <body>
 	<div id="page1" data-role="page" data-theme="b">
@@ -82,7 +54,7 @@
 <div data-role="panel" id="mypanel" data-theme="b">
         <ul data-role="listview">
             <li data-role="list-divider" data-ajax="false"><a href="/pace-calculator/">LoneRunner</a></li>
-            <li data-icon="time" data-ajax="false"><a href="/pace-calculator/">Pace Calculator</a></li>
+            <li data-icon="time" ><a href="/pace-calculator/">Pace Calculator</a></li>
             <li data-icon="book" data-ajax="false"><a href="/units-and-distances/">Units &amp; Distances</a></li>
             <li data-icon="share" data-ajax="false"><a href="/share/">Share</a></li>
             <li data-icon="info-sign" data-ajax="false"><a href="/credits/">Licenses &amp; Credits</a></li>
