@@ -61,3 +61,13 @@ th.right, td.right {
 .ui-table-columntoggle-btn {
 	display: none;
 }
+
+.message, .error {
+	min-height: 1em;
+}
+
+.message i, .error i{
+	-webkit-animation:none;
+	font-size: 16px;
+	line-height: 1.1em;
+}

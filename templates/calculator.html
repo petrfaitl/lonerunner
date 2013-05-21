@@ -15,7 +15,7 @@
 						<label for="txtPace">Moving Time</label> <!-- class="ui-hidden-accessible" -->
 						<input type="text" name="txtPace" id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
 						{% if error %}
-						<div class="error"><i class="icon-warning-sign"></i> {{error}}</div>
+						<div class="error message"><i class="icon-exclamation-sign"></i> <span>{{error}}</span></div>
 						{% endif %}
 					</div>
 				</div>
@@ -84,7 +84,9 @@
 
 						
 					</div>
-					<div class="error">{{error_units}}</div>
+					{% if error_units %}
+					<div class="error message"><i class="icon-exclamation-sign"></i><span>{{error_units}}</span></div>
+					{% endif %}
 			<!-- Custom Distance selector -->
 
 			<div id="checkboxes2" data-role="fieldcontain" class="chkCustDist">	
@@ -141,8 +143,10 @@
 <!-- Custom scripts -->
 <script>
 	$(document).ready(function() {
+		
     	var custDistance = "{{chkDefaultCustDist}}";
     	var mileUnits = "{{rdioDefaultUnits_miles}}";
+    	console.log("value of custDistance is %s", custDistance)
     	if (custDistance) {
     		$('#CustDistance').removeClass("hidden");
     		$('#PreDistance').addClass("hidden");
@@ -153,15 +157,13 @@
 			console.log("been ere");
 		} else {
 			$('#customUnitsKm').prop("checked",true).checkboxradio('refresh');
-
 		}
-	
 });
 
 </script>
 <script>
 	$(function(){
-		var results = {{speed}};
+		var results = "{{speed}}";
 		if (results){    
 		  $('html, body').animate({
 		    scrollTop: $('#results').offset().top
@@ -170,13 +172,17 @@
 	});
 
 function scrollToAnchor(id){
+	var headerHeight = $("div#header").height();
     var aTag = $("a[name='"+ id +"']");
-    $('html,body').animate({scrollTop: aTag.offset().top},'fast');
-}
+    var scrollToPosition = $(aTag).offset().top - headerHeight;
+    $('html,body').animate({scrollTop: scrollToPosition},'fast');
+	}
 
 $("#repeat").click(function() {
    scrollToAnchor('top');
 });
+
+$(".error").show().fadeOut(5000);
 </script>
 <script>
 		$('#flip-custom').click(function () {

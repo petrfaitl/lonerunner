@@ -78,6 +78,7 @@ class Calculator(Handler):
 			distance = cust_distance
 			params["distance"] = distance
 			params["selUnits"] = distance+units
+			params["txtCustDistance"] = cust_distance
 		else:
 			distance = None
 		
@@ -96,8 +97,9 @@ class Calculator(Handler):
 			params["paceunits"] = paceunits(str(pace))
 			params["output"], params["speed"], params["speed_miles"] = converter(pace,distance,units)
 
-
-		self.render("calculator.html", **params)
+		user_settings = self.get_user_prefs()
+		params.update(user_settings)
+		self.render("calculator.html",  **params) #**user_settings
 
 class FAQ(Handler):
 	def get(self):
