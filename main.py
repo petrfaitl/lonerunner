@@ -40,7 +40,7 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
@@ -70,16 +70,18 @@ class Calculator(Handler):
 		cust_distance = self.request.get("txtCustDistance")
 		cust_units = self.request.get("customUnits")
 
-		logging.error("value of my cust_units is %s", str(cust_units))
+		#logging.error("value of my cust_units is %s", str(cust_units))
 
-
+		params = dict(selUnits = units)
 		if cust_flip == "on":
 			units = cust_units
 			distance = cust_distance
+			params["distance"] = distance
+			params["selUnits"] = distance+units
 		else:
 			distance = None
 		
-		params = dict(selUnits = units)
+		
 
 		if not validate_input(pace):
 			params["txtPace"]= pace
@@ -89,6 +91,7 @@ class Calculator(Handler):
 			params["error_units"] = "Select Units"
 			params["txtPace"]= pace
 		else:
+
 			params["txtPace"]= pace
 			params["paceunits"] = paceunits(str(pace))
 			params["output"], params["speed"], params["speed_miles"] = converter(pace,distance,units)

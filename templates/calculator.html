@@ -102,7 +102,7 @@
 				<fieldset class="ui-grid-solo">
 					<div class="ui-block-a">
 					<input type="submit"  value="Calculate" /> 
-					<!-- <input type="button" name="clear" value="Clear"  onclick="ClearAllControls()"/> -->
+
 					</div>
 				</fieldset>			
 			</div>
@@ -111,18 +111,9 @@
 
 			<div class='inset'>
 				{% if output %}
-				<h3>Your calculations based on {{txtPace}}{{paceunits}} per {{selUnits}} are: </h3>
-				
-
-				<!-- <p class="results"> -->
-					
-<!-- 					{% for x in output|dictsort(by='value') %}
-
-					<div class="{{ loop.cycle('row_odd', 'row_even') }}">{{x[0]}}<span class="time_result">{{x[1][1]}}</span></div>
-					{% endfor %} -->
+				<h3 id="results">Your calculations based on {{txtPace}}{{paceunits}} per {{selUnits}} are: </h3>
 
 
-					
 					<table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-column-btn-text="" class="ui-responsive table-stroke"> 
 						<thead>
 							<tr>
@@ -143,7 +134,7 @@
 					
 					<br>
 				<span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span>
-				<!-- </p> -->
+				<a href="#" id="repeat" data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a>
 				{%endif %}
 			</div>
 
@@ -168,7 +159,25 @@
 });
 
 </script>
+<script>
+	$(function(){
+		var results = {{speed}};
+		if (results){    
+		  $('html, body').animate({
+		    scrollTop: $('#results').offset().top
+		  });
+	  }
+	});
 
+function scrollToAnchor(id){
+    var aTag = $("a[name='"+ id +"']");
+    $('html,body').animate({scrollTop: aTag.offset().top},'fast');
+}
+
+$("#repeat").click(function() {
+   scrollToAnchor('top');
+});
+</script>
 <script>
 		$('#flip-custom').click(function () {
 	        if ($(this).is(':checked')) {
@@ -182,34 +191,6 @@
 		});
 
 </script>
-<script type='text/javascript'>
-        function ClearAllControls() {
-        	{
-              for (i=0; i<document.forms[0].length; i++)
-              {
-                    doc = document.forms[0].elements[i];
-                    switch (doc.type) 
-                    {
-                        case "text" :
-                                doc.value = "";
-                                break;
-               
-                          case "select-one" :
-                                var myselect=document.getElementById("selUnits")
 
-						        myselect.add(new Option("Select Units", "Select Units"), myselect.options[0])
-						        myselect.remove(myselect.options[1])
-                                break;                      
-         
-                          default :
-                                break;
-                    }
-              }
-        }
-      
- 		
-	}
- 
-	</script>
 
 {% endblock %}

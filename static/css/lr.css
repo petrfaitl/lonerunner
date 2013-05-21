@@ -36,7 +36,7 @@ legend {
 }
 
 h3 {
-	padding: 10px 0 10px 0;
+	padding: 10px 30px 10px 0;
 }
 th.right, td.right {
 	text-align: right;
@@ -44,4 +44,20 @@ th.right, td.right {
 
 .submitted {
 	color: blue;
+}
+.right {
+	float: right;
+	margin-right: 0;
+	display: inline-block;
+	.right:after { 
+	   content: "."; 
+	   visibility: hidden; 
+	   display: block; 
+	   height: 0; 
+	   clear: both;
+	}
+}
+
+.ui-table-columntoggle-btn {
+	display: none;
 }

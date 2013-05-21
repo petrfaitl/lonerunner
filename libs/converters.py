@@ -58,4 +58,4 @@ def paceunits(pace):
 
 # print converter("15:37", 3.31, "km")
 
-print paceunits("00:0")
+#print paceunits("00:0")
