@@ -1,6 +1,7 @@
 import re
 import datetime
 import time
+import logging
 
 def converToTime(time_in_sec):
 	time = datetime.timedelta(seconds=round(time_in_sec,0))
@@ -22,15 +23,24 @@ def converter(pace, distance , units):
 	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1km":1.0, "1mile":1.60934 }
 	
 
-	if distance:
-		if units == "km":
-			mileage[str(distance)+units]= float(distance)/mileage["1km"]
+	if distance or units not in mileage:
+		if not distance:
+			distance = re.findall(r'\d+\.?\d*', str(units))
+			distance = distance[0]
+			units = re.findall(r'[a-z]+', str(units))
+			units = units[0]
+			
+		if "km" in units :
+			mileage[str(distance+units)]= float(distance)/mileage["1km"]
 			
 		else:
-			mileage[str(distance)+units] = float(distance)/mileage["1mile"]
-		units= str(distance)+units
+			mileage[str(distance+units)] = float(distance)/mileage["1mile"]
+		units= str(distance+units)
+	
+	
 
 
+	
 	
 	pace_per_k= time_in_sec /mileage[units]
 	speed =   round((mileage[units])/(time_in_sec) *3600,1)
@@ -56,6 +66,6 @@ def paceunits(pace):
 	return result
 
 
-# print converter("15:37", 3.31, "km")
+#print converter("15:37", None, "1600m")
 
 #print paceunits("00:0")

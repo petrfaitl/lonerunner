@@ -18,4 +18,14 @@ def converToTime(time_in_sec):
 	return str(datetime.timedelta(seconds=time_in_sec))
 
 
-print converToTime(convertToSec("72"))
+
+
+print re.findall(r'\d+\.?\d*', "4")
+
+
+
+
+
+
+
+#print converToTime(convertToSec("72"))

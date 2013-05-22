@@ -72,27 +72,29 @@ class Calculator(Handler):
 
 		#logging.error("value of my cust_units is %s", str(cust_units))
 
-		params = dict(selUnits = units)
+		params = dict(selUnits = str(units))
 		if cust_flip == "on":
 			units = cust_units
 			distance = cust_distance
 			params["distance"] = distance
-			params["selUnits"] = distance+units
+			params["selUnits"] = str(distance+units)
 			params["txtCustDistance"] = cust_distance
 		else:
 			distance = None
+			#params["txtCustDistance"] = units
 		
 		
 
 		if not validate_input(pace):
 			params["txtPace"]= pace
 			params["error"] = "Enter valid time [hh:mm:ss or mm:ss]"
-
 		elif not units:
 			params["error_units"] = "Select Units"
 			params["txtPace"]= pace
+		elif cust_flip=="on" and not distance:
+			params["error_units"] = "Select Units"
+			params["txtPace"]= pace
 		else:
-
 			params["txtPace"]= pace
 			params["paceunits"] = paceunits(str(pace))
 			params["output"], params["speed"], params["speed_miles"] = converter(pace,distance,units)
