@@ -53,11 +53,11 @@ class Handler(webapp2.RequestHandler):
 		# user_settings = dict.fromkeys(user_prefs, 'checked="checked"') #convering true values to checked boxes
 		return user_settings
 
-	def set_secure_cookie(self, key, value):
+	def set_session_cookie(self, key, value):
 		cookie_hash = create_secure_cookie(value)
 		self.response.headers.add_header("Set-Cookie", "%s = %s; " %(key, cookie_hash) )
 
-	def read_secure_cookie(self, cookie_name):
+	def read_session_cookie(self, cookie_name):
 		cookie_hash = self.request.cookies.get(cookie_name)
 		return decrypt_secure_cookie(cookie_hash)
 
@@ -133,7 +133,7 @@ class Settings(Handler):
 
 	def get(self):
 		referer = self.request.referer
-		self.set_secure_cookie("referer", referer)
+		self.set_session_cookie("referrer", referer)
 
 		user_settings= self.get_user_prefs()
 		
@@ -154,8 +154,8 @@ class Settings(Handler):
 		self.set_cookie("user_prefs",user_prefs)
 		user_settings = self.get_user_prefs()
 		
-		referer = self.read_secure_cookie("referer")
-		logging.error(referer)
+		referer = self.read_session_cookie("referrer")
+		
 
 		#self.render("settings.html",  **user_settings)
 		if not referer:

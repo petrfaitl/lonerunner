@@ -2,23 +2,25 @@ import hmac
 
 
 def serialise_cookies(value_set):
-	output= "|".join("%s=%s" %(str(x),str(value_set[x])) for x in value_set)
-	return output
+	output= "%".join("%s=%s" %(str(x),str(value_set[x])) for x in value_set)
+	return create_secure_cookie(output)
 
 
 
 def deserialise_cookies(cookie_string):
 	user_settings = {}
 	if cookie_string:
-		cookie_set = cookie_string.split("|")
-		for pair in cookie_set:
-			key_value= pair.split("=")
-			if not key_value[1]:
-				key_value.pop()
-				continue
-				
-			key, value = key_value
-			user_settings[key] = value
+		decrypted_cookie_set = decrypt_secure_cookie(cookie_string)
+		if decrypted_cookie_set:
+			decrypted_cookie_set = cookie_string.split("%")
+			for pair in decrypted_cookie_set:
+				key_value= pair.split("=")
+				if not key_value[1]:
+					key_value.pop()
+					continue
+					
+				key, value = key_value
+				user_settings[key] = value
 	return user_settings
 
 secure = "yadda-yadda-badda"
@@ -31,10 +33,11 @@ def create_secure_cookie(cookie_value):
 def decrypt_secure_cookie(hashed_cookie):
 	if hashed_cookie:
 		value, cookie_hash = hashed_cookie.split("|")
-	if hashed_cookie == create_secure_cookie(value):
-		return str(value)
+
+		if value and hashed_cookie == create_secure_cookie(value):
+			return str(value)
 	else:
-		None
+		return None
 
 # some_dict ={"1":"abc", "2":"asd", "3":"sdg"}
 #cookie_string = "chkDefaultCustDist=|rdioDefaultUnits=km"
@@ -44,4 +47,6 @@ def decrypt_secure_cookie(hashed_cookie):
 
 
 # create_secure_cookie( "something")
-#print decrypt_secure_cookie(create_secure_cookie("something"))
+#print decrypt_secure_cookie(create_secure_cookie( "something"))
+
+#print serialise_cookies({"chkDefaultCustDist":"true", "chk":"true"})
