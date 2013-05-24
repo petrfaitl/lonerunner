@@ -13,7 +13,7 @@
 					<div data-role="fieldcontain">
 						
 						<label for="txtPace">Moving Time</label> <!-- class="ui-hidden-accessible" -->
-						<input type="text" name="txtPace" id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
+						<input type="text" name="txtPace" tabindex="1" autofocus id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
 						{% if error %}
 						<div class="info message"><i class="icon-exclamation-sign"></i> <span>{{error}}</span></div>
 						{% endif %}
@@ -23,10 +23,10 @@
 
 
 				<div id="PreDistance" class="PreDistance">
-					<div data-role="fieldcontain">
+					<div data-role="fieldcontain" >
 					<label for="selUnits" >Distance</label>
 					
-					<select name="selUnits" id="selUnits">
+					<select name="selUnits" tabindex="2" id="selUnits">
 						<option value="">Select Units</option>
 						{% if output %}
 							<optgroup label="Last Selected">
@@ -64,17 +64,17 @@
 					
 						<div data-role="fieldcontain">
 							<label for="txtCustDistance">Distance</label>
-							<input type="text"  name="txtCustDistance" id="txtCustDistance" data-clear-btn="true" placeholder="Enter Distance"  value="{{txtCustDistance}}"/>
+							<input type="text"  name="txtCustDistance" tabindex="4" id="txtCustDistance" data-clear-btn="true" placeholder="Enter Distance"  value="{{txtCustDistance}}"/>
 						</div>	
 								
 						<div id="rdioCustUnits" data-role="fieldcontain">
 				            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				                <legend class="collapse-legend">&nbsp;</legend>
-				                <input id="customUnitsKm" name="customUnits" value="km"  type="radio"> <!-- checked="checked" -->
+				                <input id="customUnitsKm" name="customUnits" tabindex="5" value="km"  type="radio"> <!-- checked="checked" -->
 				                <label for="customUnitsKm">
 				                    km
 				                </label>
-				                <input id="customUnitsMiles" name="customUnits" value="miles" type="radio">
+				                <input id="customUnitsMiles" name="customUnits" tabindex="6" value="miles" type="radio">
 				                <label for="customUnitsMiles">
 				                    miles
 				                </label>
@@ -93,7 +93,7 @@
 
 				<fieldset data-role="controlgroup" data-type="vertical">
 					<legend class="collapse-legend">&nbsp;</legend>
-					<input id="flip-custom" name="flip-custom" type="checkbox">
+					<input id="flip-custom" tabindex="3" name="flip-custom" type="checkbox">
 					<label for="flip-custom">
 						Activate Custom Distance
 					</label>
@@ -103,7 +103,7 @@
 			 <div class="submit-block">
 				<fieldset class="ui-grid-solo">
 					<div class="ui-block-a">
-					<input type="submit"  value="Calculate" /> 
+					<input type="submit" tabindex="6" value="Calculate" /> 
 
 					</div>
 				</fieldset>			
@@ -146,7 +146,7 @@
 		
     	var custDistance = "{{chkDefaultCustDist}}";
     	var mileUnits = "{{rdioDefaultUnits_miles}}";
-    	console.log("value of custDistance is %s", custDistance)
+    	
     	if (custDistance) {
     		$('#CustDistance').removeClass("hidden");
     		$('#PreDistance').addClass("hidden");
@@ -154,7 +154,7 @@
     	}
 	    if (mileUnits){
 			$('#customUnitsMiles').prop("checked",true).checkboxradio('refresh');
-			console.log("been ere");
+			
 		} else {
 			$('#customUnitsKm').prop("checked",true).checkboxradio('refresh');
 		}
