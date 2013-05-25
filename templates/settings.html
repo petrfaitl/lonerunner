@@ -41,16 +41,35 @@
 		                </label>
 		            </fieldset>
 		        </li>
-<!-- 		        <li id="checkboxes4" data-role="fieldcontain" class="ui-disabled">
-		            <fieldset data-role="controlgroup" data-type="vertical" >
-		            	<legend class="collapse-legend">
-		                    &nbsp;
-		                </legend>
-		                <input id="checkbox4" name="chk4"  {{chkbox4}} type="checkbox">
-		                <label for="checkbox4">
-		                    chk3
-		                </label>
-		            </fieldset>
+ 		        <li id="checkboxes4" data-role="fieldcontain" >
+			            <div  class="ui-grid-a">
+					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >
+			            	<legend >
+			                    Weight
+			                </legend>
+			                <input id="txtWeight" name="weight" data-clear-btn="true" placeholder="Weight"  {{weight}} type="text">
+			                <label for="txtWeight" class="ui-hidden-accessible">
+			                    Weight
+			                </label>
+			            </div></div>
+		                <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >
+		                	<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" >
+			                	<input id="checkbox4" name="chkopt1" {{chkbox4_checked}} type="radio">
+				                <label for="checkbox4">
+				                    kg
+				                </label>
+
+				                <input id="checkbox4b" name="chkopt1" {{chkbox4b_checked}} type="radio">
+				                <label for="checkbox4b">
+				                    lb
+				                </label>
+				                <input id="checkbox4c" name="chkopt1" {{chkbox4c_checked}} type="radio">
+				                <label for="checkbox4c">
+				                    st
+				                </label>
+				            </fieldset>
+		                </div></div></div>
+		            
 		        </li>
 		        <li id="checkboxes5" data-role="fieldcontain" class="ui-disabled">
 		            <fieldset data-role="controlgroup"  data-type="vertical" >
@@ -70,7 +89,7 @@
 		                    option3
 		                </label>
 		            </fieldset>
-		        </li> -->
+		        </li> 
 		        <li>
                         <fieldset class="ui-grid-a">
                                 <div class="ui-block-a"><a href="/" tabindex="5" data-role="button"> Cancel</a></div>

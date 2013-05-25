@@ -146,9 +146,12 @@
 
 					
 					<br>
+					<div  class="ui-grid-a">
+					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >{%if rdioDefaultUnits_miles or cust_units == "miles" %}{{speed_miles}}miles/h {% else %} {{speed}}km/h {% endif %}</span><br><span>RUNNING SPEED</span></div></div>
+					    <div id="results-block-b" class="ui-block-b"><div class="ui-bar ui-bar-b results-bar">{{calories}}<br><span>CALORIES</span></div></div>
+					</div>
 
-
-				<span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span>
+				<!-- <span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span> -->
 				<a href="#" id="repeat" data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a>
 				{%endif %}
 			</div>
