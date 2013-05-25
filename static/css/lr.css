@@ -71,3 +71,23 @@ th.right, td.right {
 	font-size: 16px;
 	line-height: 1.1em;
 }
+
+.results-bar {
+	text-align: center;
+}
+
+.results-bar span {
+	font-size: .7em;
+}
+
+#results-block-b.ui-block-b, #results-block-c.ui-block-c {
+	margin-bottom: 1em;
+	border-left: 1px solid #6dcaec;
+}
+.ui-bar-b {
+	border-bottom: 1px solid #6dcaec;
+}
+
+.ui-bar {
+	padding: .4em 5px;
+}

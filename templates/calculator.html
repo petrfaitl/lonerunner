@@ -13,7 +13,7 @@
 					<div data-role="fieldcontain">
 						
 						<label for="txtPace">Moving Time</label> <!-- class="ui-hidden-accessible" -->
-						<input type="text" name="txtPace" tabindex="1" autofocus id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
+						<input type="text" name="txtPace" tabindex="1"  id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
 						{% if error %}
 						<div class="info message"><i class="icon-exclamation-sign"></i> <span>{{error}}</span></div>
 						{% endif %}
@@ -113,14 +113,25 @@
 
 			<div class='inset'>
 				{% if output %}
-				<h3 id="results">Your calculations based on {{txtPace}}{{paceunits}} per {{selUnits}} are: </h3>
+				<h3 id="results">Results</h3>
+					<div  class="ui-grid-b">
+					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >{{txtPace}}<span>{{paceunits}}</span><br><span>MOVING TIME</span></div></div>
+					    <div id="results-block-b" class="ui-block-b"><div class="ui-bar ui-bar-b results-bar" >{{selUnits}}<br><span>DISTANCE</span></div></div>
+					    <div id="results-block-c" class="ui-block-c"><div class="ui-bar ui-bar-b results-bar" >
+					    	{% if rdioDefaultUnits_miles or cust_units == "miles" %}
+					    	{{output["1mile"][1]}}<span></span><br><span>PACE (min/mile)</span>
+							{% else %}
+							{{output["1km"][1]}}<span></span><br><span>PACE (min/km)</span>
+							{% endif %}
 
-
+					    </div></div>
+					</div><!-- /grid-a -->
+	
 					<table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-column-btn-text="" class="ui-responsive table-stroke"> 
 						<thead>
 							<tr>
-								<th>Distance</th>
-								<th class="right">Time</th>
+								<th>DISTANCE</th>
+								<th class="right">TIME</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -135,6 +146,8 @@
 
 					
 					<br>
+
+
 				<span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span>
 				<a href="#" id="repeat" data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a>
 				{%endif %}
@@ -164,9 +177,10 @@
 <script>
 	$(function(){
 		var results = "{{speed}}";
+		var headerHeight = $("div#header").height();
 		if (results){    
 		  $('html, body').animate({
-		    scrollTop: $('#results').offset().top
+		    scrollTop: $('#results').offset().top - headerHeight
 		  });
 	  }
 	});
