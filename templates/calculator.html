@@ -74,9 +74,9 @@
 				                <label for="customUnitsKm">
 				                    km
 				                </label>
-				                <input id="customUnitsMiles" name="customUnits" tabindex="6" value="miles" type="radio">
+				                <input id="customUnitsMiles" name="customUnits" tabindex="6" value="mile" type="radio">
 				                <label for="customUnitsMiles">
-				                    miles
+				                    mile
 				                </label>
 				            </fieldset>
 				        </div>
@@ -118,7 +118,7 @@
 					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >{{txtPace}}<span>{{paceunits}}</span><br><span>MOVING TIME</span></div></div>
 					    <div id="results-block-b" class="ui-block-b"><div class="ui-bar ui-bar-b results-bar" >{{selUnits}}<br><span>DISTANCE</span></div></div>
 					    <div id="results-block-c" class="ui-block-c"><div class="ui-bar ui-bar-b results-bar" >
-					    	{% if rdioDefaultUnits_miles or cust_units == "miles" %}
+					    	{% if rdioDefaultUnits_miles or cust_units == "mile" %}
 					    	{{output["1mile"][1]}}<span></span><br><span>PACE (min/mile)</span>
 							{% else %}
 							{{output["1km"][1]}}<span></span><br><span>PACE (min/km)</span>

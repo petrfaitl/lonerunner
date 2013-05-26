@@ -18,10 +18,10 @@ def convertToSec(pace):
 
 
 
-def converter(pace, distance , units):
+def converter(pace, distance , units, weight):
 	time_in_sec =  convertToSec(pace)
 	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1km":1.0, "1mile":1.60934 }
-	
+	kilometers = mileage.get(units)
 
 	if distance or units not in mileage:
 		if not distance:
@@ -32,19 +32,19 @@ def converter(pace, distance , units):
 			
 		if "km" in units :
 			mileage[str(distance+units)]= float(distance)/mileage["1km"]
-			
 		else:
-			mileage[str(distance+units)] = float(distance)/mileage["1mile"]
+			mileage[str(distance+units)] = float(distance)*mileage["1mile"]
+
 		units= str(distance+units)
-	
-	
-
-
-	
+		kilometers = mileage.get(units)
 	
 	pace_per_k= time_in_sec /mileage[units]
 	speed =   round((mileage[units])/(time_in_sec) *3600,1)
 	speed_miles = round(speed /1.60934,1)
+	if weight and kilometers:
+		calories = int(float(weight) * kilometers * 1.036)
+	else:
+		calories = "-"
 
 	output = {}
 
@@ -53,7 +53,7 @@ def converter(pace, distance , units):
 			continue
 		else:
 			output[distance] = [mileage[distance], converToTime(float(pace_per_k * mileage[distance]))]
-	return output, speed, speed_miles
+	return output, speed, speed_miles, calories
 
 
 def paceunits(pace):
@@ -66,6 +66,7 @@ def paceunits(pace):
 	return result
 
 
-#print converter("15:37", None, "1600m")
+
+#print converter("8:00", "1", "miles")
 
 #print paceunits("00:0")

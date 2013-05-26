@@ -10,9 +10,9 @@
 <div class='inset'>
 
 	<form method="post">
-        <ul data-role="listview" id="ul-settings" data-inset="true">
+        
 
-			<li id="rdioDefaultUnits-set" data-role="fieldcontain">
+			<div  id="rdioDefaultUnits-set" data-role="fieldcontain">
 		            <fieldset data-role="controlgroup" data-type="vertical" >
 		                <legend>
 		                    Select default units
@@ -29,8 +29,8 @@
 		                    miles
 		                </label>
 		            </fieldset>
-		        </li>
-		        <li id="checkboxes3" data-role="fieldcontain">
+		        </div >
+		        <div  id="checkboxes3" data-role="fieldcontain">
 		            <fieldset data-role="controlgroup" data-type="vertical" >
 		            	<legend class="collapse-legend">
 		                    &nbsp;
@@ -40,65 +40,69 @@
 		                    Activate custom distance
 		                </label>
 		            </fieldset>
-		        </li>
- 		        <li id="checkboxes4" data-role="fieldcontain" >
-			            <div  class="ui-grid-a">
-					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >
-			            	<legend >
-			                    Weight
-			                </legend>
-			                <input id="txtWeight" name="weight" data-clear-btn="true" placeholder="Weight"  {{weight}} type="text">
-			                <label for="txtWeight" class="ui-hidden-accessible">
+		        </div >
+ 		        <div  id="defaultWeight-set"  >
+			            <div data-role="fieldcontain" >
+					    
+			            	<label for="txtWeight" >
 			                    Weight
 			                </label>
-			            </div></div>
-		                <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >
+			                <input id="txtWeight" name="txtWeight"  value="{{txtWeight}}" type="text">
+			                
+			            </div>
+		                <div data-role="fieldcontain">
+
 		                	<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" >
-			                	<input id="checkbox4" name="chkopt1" {{chkbox4_checked}} type="radio">
-				                <label for="checkbox4">
+		                		<legend class="collapse-legend">&nbsp;</legend>
+			                	<input id="rdioDefaultWeight_kg" name="rdioDefaultWeight" value="kg" {{rdioDefaultWeight_kg}} type="radio">
+				                <label for="rdioDefaultWeight_kg">
 				                    kg
 				                </label>
 
-				                <input id="checkbox4b" name="chkopt1" {{chkbox4b_checked}} type="radio">
-				                <label for="checkbox4b">
+				                <input id="rdioDefaultWeight_lb" name="rdioDefaultWeight" value="lb" {{rdioDefaultWeight_lb}} type="radio">
+				                <label for="rdioDefaultWeight_lb">
 				                    lb
 				                </label>
-				                <input id="checkbox4c" name="chkopt1" {{chkbox4c_checked}} type="radio">
-				                <label for="checkbox4c">
+				                <input id="rdioDefaultWeight_st" name="rdioDefaultWeight" value="st" {{rdioDefaultWeight_st}} type="radio">
+				                <label for="rdioDefaultWeight_st">
 				                    st
 				                </label>
 				            </fieldset>
-		                </div></div></div>
+				            {% if error_weight %}
+				            <div class="message info"><i class="icon-exclamation-sign"></i><span>{{error_weight}}</span></div>
+				            {% endif %}
+		                </div>
 		            
-		        </li>
-		        <li id="checkboxes5" data-role="fieldcontain" class="ui-disabled">
+		        </div >
+		        <br/>
+		        <div  id="checkboxes5" data-role="fieldcontain" class="ui-disabled">
 		            <fieldset data-role="controlgroup"  data-type="vertical" >
 		                <legend>
-		                    Title for checks
+		                    Gender
 		                </legend>
-		                <input id="checkbox5" name="chkopt1" {{chkbox5_checked}} type="checkbox">
-		                <label for="checkbox5">
-		                    option1
+		                <input id="rdioDefaultGender_female" name="rdioDefaultGender" value="female" {{rdioDefaultGender_female}} type="radio">
+		                <label for="rdioDefaultGender_female">
+		                    Female
 		                </label>
-		                <input id="checkbox7" name="chkopt2" {{chkbox6_checked}} type="checkbox">
-		                <label for="checkbox7">
-		                    option2
+		                <input id="rdioDefaultGender_male" name="rdioDefaultGender" value="male" {{rdioDefaultGender_male}} type="radio">
+		                <label for="rdioDefaultGender_male">
+		                    Male
 		                </label>
-		                <input id="checkbox8" name="chkopt3" {{chkbox7_checked}} type="checkbox">
-		                <label for="checkbox8">
-		                    option3
+		                <input id="rdioDefaultGender_unknown" name="rdioDefaultGender" value="unknown" {{rdioDefaultGender_unknown}} type="radio">
+		                <label for="rdioDefaultGender_unknown">
+		                    Not specified
 		                </label>
 		            </fieldset>
-		        </li> 
-		        <li>
+		        </div > 
+		        <div >
                         <fieldset class="ui-grid-a">
                                 <div class="ui-block-a"><a href="/" tabindex="5" data-role="button"> Cancel</a></div>
                                 <div class="ui-block-b"><input type="submit" tabindex="4" id="save_button" value="Save" /> </div>
                                 <span id="response"></span>
                         </fieldset>
-                    </li>
+                    </div >
 
-		    </ul>
+		    
     </div>
 
 
@@ -106,6 +110,8 @@
 	$(document).on("pageinit",function() {
     	var defCustDistance = "{{chkDefaultCustDist}}";
     	var defMileUnits = "{{rdioDefaultUnits_miles}}";
+    	var defGender_male = "{{rdioDefaultGender_male}}";
+    	var defGender_female = "{{rdioDefaultGender_female}}";
     	
     	
     	if (defCustDistance) {
@@ -119,10 +125,30 @@
 		} else {
 			$('#rdioDefaultUnits_km').prop("checked",true).checkboxradio('refresh');
 		}
+
+		if (defGender_female) {
+			$('#rdioDefaultGender_female').prop("checked", true).checkboxradio('refresh');
+		} else if (defGender_male) {
+			$('#rdioDefaultGender_male').prop("checked", true).checkboxradio('refresh');
+		} else {
+			$('#rdioDefaultGender_unknown').prop("checked", true).checkboxradio('refresh');
+		}
+
 		
 	
 });
 
+	$(document).ready(function() {
+    	var defWeightUnits = "{{rdioDefaultWeight}}";
+	    if (defWeightUnits == "kg"){
+			$('#rdioDefaultWeight_kg').prop("checked",true).checkboxradio('refresh');
+			
+		} else if (defWeightUnits == "lb") {
+			$('#rdioDefaultWeight_lb').prop("checked",true).checkboxradio('refresh');
+		} else {
+			$('#rdioDefaultWeight_st').prop("checked",true).checkboxradio('refresh');
+		}
+});
 	
 
 </script>
@@ -135,6 +161,8 @@
 			
 
 		});
+
+		$(".info").show().fadeOut(5000);
 
 		</script>
 {% endblock %}

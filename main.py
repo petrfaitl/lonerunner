@@ -19,7 +19,7 @@ import webapp2
 import jinja2
 import datetime
 from libs.converters import converter, paceunits
-from libs.validation import validate_input
+from libs.validation import validate_input, validate_float, validate_weight
 from libs.cookies import serialise_cookies, deserialise_cookies, create_secure_cookie, decrypt_secure_cookie
 import logging
 
@@ -40,7 +40,7 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s;  Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
@@ -55,7 +55,7 @@ class Handler(webapp2.RequestHandler):
 
 	def set_session_cookie(self, key, value):
 		cookie_hash = create_secure_cookie(value)
-		self.response.headers.add_header("Set-Cookie", "%s = %s; Domain= lone-runner.appspot.com;" %(key, cookie_hash) )
+		self.response.headers.add_header("Set-Cookie", "%s = %s; " %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
 
 	def read_session_cookie(self, cookie_name):
 		cookie_hash = self.request.cookies.get(cookie_name)
@@ -82,38 +82,42 @@ class Calculator(Handler):
 		cust_flip = self.request.get("flip-custom")
 		cust_distance = self.request.get("txtCustDistance")
 		cust_units = self.request.get("customUnits")
-
-		#logging.error("value of my cust_units is %s", str(cust_units))
+		user_settings = self.get_user_prefs()
 
 		params = dict(selUnits = str(units))
 		if cust_flip == "on":
 			units = cust_units
-			distance = cust_distance
-			params["distance"] = distance
-			params["selUnits"] = str(distance+units)
+			
+			if validate_float(cust_distance):
+				distance = cust_distance
+				params["distance"] = distance
+				params["selUnits"] = str(distance+units)
+			
 			params["txtCustDistance"] = cust_distance
 		else:
 			distance = None
 			#params["txtCustDistance"] = units
-		
+		weight = user_settings.get("txtWeight")
+		logging.error("weight is: %s" %weight)
 		
 
 		if not validate_input(pace):
 			params["txtPace"]= pace
 			params["error"] = "Enter valid time [hh:mm:ss or mm:ss]"
 		elif not units:
-			params["error_units"] = "Select Units"
+			params["error_units"] = "Select units"
 			params["txtPace"]= pace
 		elif cust_flip=="on" and not distance:
-			params["error_units"] = "Select Units"
+			params["error_units"] = "Enter valid distance"
 			params["txtPace"]= pace
 		else:
 			params["cust_units"] = cust_units
 			params["txtPace"]= pace
 			params["paceunits"] = paceunits(str(pace))
-			params["output"], params["speed"], params["speed_miles"] = converter(pace,distance,units)
+			params["output"], params["speed"], params["speed_miles"], params["calories"] = converter(pace,distance,units, weight)
+			
 
-		user_settings = self.get_user_prefs()
+		
 		params.update(user_settings)
 		self.render("calculator.html",  **params) #**user_settings
 
@@ -142,16 +146,33 @@ class Settings(Handler):
 
 
 	def post(self):
-		
+		has_error = None
+		params = {}
 		user_prefs = {}
 		rdioDefaultUnits_value = self.request.get("rdioDefaultUnits")
+		chkDefaultCustDist = self.request.get("chkDefaultCustDist")
+		txtWeight = self.request.get("txtWeight")
+		rdioDefaultGender = self.request.get("rdioDefaultGender")
+
 		if rdioDefaultUnits_value:
 			user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "true" 
 
-		chkDefaultCustDist = self.request.get("chkDefaultCustDist")
+		
 		if chkDefaultCustDist:
 			user_prefs["chkDefaultCustDist"] = "true"
+
 		
+		if validate_weight(txtWeight):
+			user_prefs["txtWeight"] = txtWeight
+			rdioDefaultWeight = self.request.get("rdioDefaultWeight")
+			user_prefs["rdioDefaultWeight"] = rdioDefaultWeight 
+		else:
+			params["error_weight"] = "Enter valid weight"
+			has_error = True
+
+		user_prefs["rdioDefaultGender_%s" %rdioDefaultGender] = "true"
+
+
 		self.set_cookie("user_prefs",user_prefs)
 		user_settings = self.get_user_prefs()
 		
@@ -159,7 +180,9 @@ class Settings(Handler):
 		
 
 		#self.render("settings.html",  **user_settings)
-		if not referer:
+		if has_error:
+			self.render("settings.html", **params)
+		elif referer:
 			self.redirect("/")
 		else:
 			self.redirect(referer)
