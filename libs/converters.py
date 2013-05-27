@@ -18,7 +18,7 @@ def convertToSec(pace):
 
 
 
-def converter(pace, distance , units, weight):
+def converter(pace, distance , units, weight, weight_units):
 	time_in_sec =  convertToSec(pace)
 	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1km":1.0, "1mile":1.60934 }
 	kilometers = mileage.get(units)
@@ -42,7 +42,14 @@ def converter(pace, distance , units, weight):
 	speed =   round((mileage[units])/(time_in_sec) *3600,1)
 	speed_miles = round(speed /1.60934,1)
 	if weight and kilometers:
-		calories = int(float(weight) * kilometers * 1.036)
+		if weight_units == "lb":
+			weightInKg = float(weight) * 0.453592
+		elif weight_units == "st":
+			weightInKg = float(weight) * 6.35029
+		else:
+			weightInKg = float(weight)
+
+		calories = int(weightInKg * kilometers * 1.036)
 	else:
 		calories = "-"
 

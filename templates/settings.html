@@ -140,13 +140,13 @@
 
 	$(document).ready(function() {
     	var defWeightUnits = "{{rdioDefaultWeight}}";
-	    if (defWeightUnits == "kg"){
-			$('#rdioDefaultWeight_kg').prop("checked",true).checkboxradio('refresh');
+	    if (defWeightUnits == "st"){
+			$('#rdioDefaultWeight_st').prop("checked",true).checkboxradio('refresh');
 			
 		} else if (defWeightUnits == "lb") {
 			$('#rdioDefaultWeight_lb').prop("checked",true).checkboxradio('refresh');
 		} else {
-			$('#rdioDefaultWeight_st').prop("checked",true).checkboxradio('refresh');
+			$('#rdioDefaultWeight_kg').prop("checked",true).checkboxradio('refresh');
 		}
 });
 	

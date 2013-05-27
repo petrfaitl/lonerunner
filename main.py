@@ -22,6 +22,7 @@ from libs.converters import converter, paceunits
 from libs.validation import validate_input, validate_float, validate_weight
 from libs.cookies import serialise_cookies, deserialise_cookies, create_secure_cookie, decrypt_secure_cookie
 import logging
+from urlparse import urlparse
 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
@@ -40,7 +41,7 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s;  Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
@@ -48,14 +49,15 @@ class Handler(webapp2.RequestHandler):
 		return value_set
 	
 	def get_user_prefs(self):
-		user_settings = {}
-		user_settings = self.read_cookie("user_prefs") #change user_prefs > user_settings
-		# user_settings = dict.fromkeys(user_prefs, 'checked="checked"') #convering true values to checked boxes
+		user_settings = self.read_cookie("user_prefs")
+		logging.error("user_settings are %s" %user_settings)
+		if not user_settings and self.request.cookies.get("user_prefs"): #checking for cookie tampering
+			self.response.delete_cookie("user_prefs") 
 		return user_settings
 
 	def set_session_cookie(self, key, value):
 		cookie_hash = create_secure_cookie(value)
-		self.response.headers.add_header("Set-Cookie", "%s = %s; " %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s = %s; Domain= lone-runner.appspot.com;" %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
 
 	def read_session_cookie(self, cookie_name):
 		cookie_hash = self.request.cookies.get(cookie_name)
@@ -98,7 +100,7 @@ class Calculator(Handler):
 			distance = None
 			#params["txtCustDistance"] = units
 		weight = user_settings.get("txtWeight")
-		logging.error("weight is: %s" %weight)
+		weight_units = user_settings.get("rdioDefaultWeight")
 		
 
 		if not validate_input(pace):
@@ -114,7 +116,7 @@ class Calculator(Handler):
 			params["cust_units"] = cust_units
 			params["txtPace"]= pace
 			params["paceunits"] = paceunits(str(pace))
-			params["output"], params["speed"], params["speed_miles"], params["calories"] = converter(pace,distance,units, weight)
+			params["output"], params["speed"], params["speed_miles"], params["calories"] = converter(pace,distance,units, weight, weight_units)
 			
 
 		
@@ -138,7 +140,11 @@ class Settings(Handler):
 
 	def get(self):
 		referer = self.request.referer
-		self.set_session_cookie("referrer", referer)
+		my_site = urlparse(self.request.url).netloc
+		
+		
+		if referer and my_site in referer:
+			self.set_session_cookie("referrer", referer)
 
 		user_settings= self.get_user_prefs()
 		
@@ -175,14 +181,13 @@ class Settings(Handler):
 
 		self.set_cookie("user_prefs",user_prefs)
 		user_settings = self.get_user_prefs()
-		
 		referer = self.read_session_cookie("referrer")
 		
 
 		#self.render("settings.html",  **user_settings)
 		if has_error:
 			self.render("settings.html", **params)
-		elif referer:
+		elif not referer:
 			self.redirect("/")
 		else:
 			self.redirect(referer)
