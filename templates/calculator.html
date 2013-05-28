@@ -12,7 +12,7 @@
 				<div id="pace" class="pace">
 					<div data-role="fieldcontain">
 						
-						<label for="txtPace">Moving Time</label> <!-- class="ui-hidden-accessible" -->
+						<label for="txtPace">MOVING TIME</label> <!-- class="ui-hidden-accessible" -->
 						<input type="text" name="txtPace" tabindex="1"  id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
 						{% if error %}
 						<div class="info message"><i class="icon-exclamation-sign"></i> <span>{{error}}</span></div>
@@ -24,7 +24,7 @@
 
 				<div id="PreDistance" class="PreDistance">
 					<div data-role="fieldcontain" >
-					<label for="selUnits" >Distance</label>
+					<label for="selUnits" >DISTANCE</label>
 					
 					<select name="selUnits" tabindex="2" id="selUnits">
 						<option value="">Select Units</option>
@@ -63,7 +63,7 @@
 					<div id="CustDistance" class="CustDistance hidden"> 
 					
 						<div data-role="fieldcontain">
-							<label for="txtCustDistance">Distance</label>
+							<label for="txtCustDistance">DISTANCE</label>
 							<input type="text"  name="txtCustDistance" tabindex="4" id="txtCustDistance" data-clear-btn="true" placeholder="Enter Distance"  value="{{txtCustDistance}}"/>
 						</div>	
 								
@@ -95,7 +95,7 @@
 					<legend class="collapse-legend">&nbsp;</legend>
 					<input id="flip-custom" tabindex="3" name="flip-custom" type="checkbox">
 					<label for="flip-custom">
-						Activate Custom Distance
+						Activate custom distance
 					</label>
 				</fieldset>
 			</div> <!-- /Custom Distance selector -->
@@ -147,7 +147,7 @@
 					
 					<br>
 					<div  class="ui-grid-a">
-					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >{%if rdioDefaultUnits_miles or cust_units == "miles" %}{{speed_miles}}miles/h {% else %} {{speed}}km/h {% endif %}</span><br><span>RUNNING SPEED</span></div></div>
+					    <div class="ui-block-a"><div class="ui-bar ui-bar-b results-bar" >{%if rdioDefaultUnits_miles or cust_units == "mile" %}{{speed_miles}}miles/h {% else %} {{speed}}km/h {% endif %}</span><br><span>RUNNING SPEED</span></div></div>
 					    <div id="results-block-b" class="ui-block-b"><div class="ui-bar ui-bar-b results-bar">{% if calories == "-" %}<span>Enter your weight in settings</span> {% else %}{{calories}}{% endif %}<br><span>CALORIES</span></div></div>
 					</div>
 
@@ -196,7 +196,7 @@ function scrollToAnchor(id){
 	}
 
 $("#repeat").click(function() {
-   scrollToAnchor('top');
+   scrollTo('#top');
 });
 
 $(".info").show().fadeOut(5000);
