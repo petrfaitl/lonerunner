@@ -137,8 +137,7 @@ class Calculator(Handler):
 		if not local_prefs:
 			local_prefs = self.get_user_prefs("local_prefs")
 			
-		logging.error(local_prefs)
-		logging.error(local_prefs.viewvalues())
+		
 		params.update(user_settings)
 		params.update(local_prefs)
 		self.render("calculator.html",  **params) #**user_settings
