@@ -14,10 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
+import os, os.path
 import webapp2
 import jinja2
-import datetime
+import datetime, time
 from libs.converters import converter, paceunits
 from libs.validation import validate_input, validate_float, validate_weight
 from libs.cookies import serialise_cookies, deserialise_cookies, create_secure_cookie, decrypt_secure_cookie
@@ -41,23 +41,25 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s;  Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
 		value_set = deserialise_cookies(cookie_val)
 		return value_set
 	
-	def get_user_prefs(self):
-		user_settings = self.read_cookie("user_prefs")
-		logging.error("user_settings are %s" %user_settings)
-		if not user_settings and self.request.cookies.get("user_prefs"): #checking for cookie tampering
-			self.response.delete_cookie("user_prefs") 
+	def get_user_prefs(self, cookie_name):
+		user_settings = self.read_cookie(cookie_name)
+		
+		if not user_settings and self.request.cookies.get(cookie_name): #checking for cookie tampering
+			self.response.delete_cookie(cookie_name) 
 		return user_settings
+
+
 
 	def set_session_cookie(self, key, value):
 		cookie_hash = create_secure_cookie(value)
-		self.response.headers.add_header("Set-Cookie", "%s = %s; Domain= lone-runner.appspot.com;" %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s = %s; " %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
 
 	def read_session_cookie(self, cookie_name):
 		cookie_hash = self.request.cookies.get(cookie_name)
@@ -74,7 +76,9 @@ class MainPage(Handler):
 
 class Calculator(Handler):
 	def get(self, selUnits = "Select Units"):
-		user_settings = self.get_user_prefs()
+		user_settings = self.get_user_prefs("user_prefs")
+		local_prefs = self.get_user_prefs("local_prefs")
+		user_settings.update(local_prefs)
 		self.render("calculator.html", selUnits=selUnits, **user_settings )
 
 
@@ -84,9 +88,11 @@ class Calculator(Handler):
 		cust_flip = self.request.get("flip-custom")
 		cust_distance = self.request.get("txtCustDistance")
 		cust_units = self.request.get("customUnits")
-		user_settings = self.get_user_prefs()
-
+		user_settings = self.get_user_prefs("user_prefs")
+		
+		local_prefs = dict(rdioLocalUnits = cust_units)
 		params = dict(selUnits = str(units))
+		distance = None
 		if cust_flip == "on":
 			units = cust_units
 			
@@ -97,7 +103,8 @@ class Calculator(Handler):
 			
 			params["txtCustDistance"] = cust_distance
 		else:
-			distance = None
+			pass
+			# distance = None
 			#params["txtCustDistance"] = units
 		weight = user_settings.get("txtWeight")
 		weight_units = user_settings.get("rdioDefaultWeight")
@@ -117,10 +124,23 @@ class Calculator(Handler):
 			params["txtPace"]= pace
 			params["paceunits"] = paceunits(str(pace))
 			params["output"], params["speed"], params["speed_miles"], params["calories"] = converter(pace,distance,units, weight, weight_units)
-			
+		
+		if cust_flip:
+			local_prefs["chkDefaultCustDist"] = "true"
+		else:
+			local_prefs["chkDefaultCustDist"] = "None"
 
 		
+
+
+		self.set_cookie("local_prefs",local_prefs)
+		if not local_prefs:
+			local_prefs = self.get_user_prefs("local_prefs")
+			
+		logging.error(local_prefs)
+		logging.error(local_prefs.viewvalues())
 		params.update(user_settings)
+		params.update(local_prefs)
 		self.render("calculator.html",  **params) #**user_settings
 
 class FAQ(Handler):
@@ -146,7 +166,7 @@ class Settings(Handler):
 		if referer and my_site in referer:
 			self.set_session_cookie("referrer", referer)
 
-		user_settings= self.get_user_prefs()
+		user_settings= self.get_user_prefs("user_prefs")
 		
 		self.render("settings.html", **user_settings)
 
@@ -159,6 +179,7 @@ class Settings(Handler):
 		chkDefaultCustDist = self.request.get("chkDefaultCustDist")
 		txtWeight = self.request.get("txtWeight")
 		rdioDefaultGender = self.request.get("rdioDefaultGender")
+		rdioDefaultWeight = self.request.get("rdioDefaultWeight")
 
 		if rdioDefaultUnits_value:
 			user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "true" 
@@ -168,19 +189,19 @@ class Settings(Handler):
 			user_prefs["chkDefaultCustDist"] = "true"
 
 		
-		if validate_weight(txtWeight):
+		if validate_weight(txtWeight,rdioDefaultWeight):
 			user_prefs["txtWeight"] = txtWeight
-			rdioDefaultWeight = self.request.get("rdioDefaultWeight")
 			user_prefs["rdioDefaultWeight"] = rdioDefaultWeight 
 		else:
-			params["error_weight"] = "Enter valid weight"
+			params["error_weight"] = "That doesn't look right"
+			params["txtWeight"] = txtWeight
 			has_error = True
 
 		user_prefs["rdioDefaultGender_%s" %rdioDefaultGender] = "true"
 
 
 		self.set_cookie("user_prefs",user_prefs)
-		user_settings = self.get_user_prefs()
+		user_settings = self.get_user_prefs("user_prefs")
 		referer = self.read_session_cookie("referrer")
 		
 
@@ -194,7 +215,10 @@ class Settings(Handler):
 		
 
 
-
+class About(Handler):
+	def get(self):
+		build =  "Build: %s" % time.ctime(os.path.getmtime("main.py"))
+		self.render("about.html", build_no = build)
 
 
 
@@ -207,5 +231,6 @@ app = webapp2.WSGIApplication([
 							('/pace-calculator/?', Calculator),
 							('/credits/?', Credits),
 							('/share/?', Share),
-							('/settings/?', Settings)
+							('/settings/?', Settings),
+							('/about/', About),
 							], debug=True)

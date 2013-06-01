@@ -22,7 +22,7 @@ def converter(pace, distance , units, weight, weight_units):
 	time_in_sec =  convertToSec(pace)
 	mileage= {"min/mile":1.60934, "1200m":1.2 , "min/km":1.0, "800m":0.8, "400m":0.4, "1500m":1.5,"1600m":1.6, "5k":5.0, "10k":10.0, "Half":21.0975, "Marathon":42.195, "1km":1.0, "1mile":1.60934 }
 	kilometers = mileage.get(units)
-
+	
 	if distance or units not in mileage:
 		if not distance:
 			distance = re.findall(r'\d+\.?\d*', str(units))
@@ -55,11 +55,14 @@ def converter(pace, distance , units, weight, weight_units):
 
 	output = {}
 
-	for distance in mileage:
-		if distance == "min/km" or distance == "min/mile":
+	for distanceIter in mileage:
+		if distanceIter == "min/km" or distanceIter == "min/mile":
 			continue
+		elif distance and distanceIter == units: 
+			continue
+
 		else:
-			output[distance] = [mileage[distance], converToTime(float(pace_per_k * mileage[distance]))]
+			output[distanceIter] = [mileage[distanceIter], converToTime(float(pace_per_k * mileage[distanceIter]))]
 	return output, speed, speed_miles, calories
 
 

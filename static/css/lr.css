@@ -15,7 +15,7 @@
 
 .PreDistance, .CustDistance, .pace, .flipCustDistance, .submit-block, .chkCustDist {
 	display: block;
-	padding: 0.7em 15px;
+	padding: 0.2em 15px;
 }
 .hidden {
 	display: none;
@@ -41,7 +41,9 @@ h3 {
 th.right, td.right {
 	text-align: right;
 }
-
+label.ui-submit {
+	display: none;
+}
 .submitted {
 	color: blue;
 }
@@ -72,6 +74,9 @@ th.right, td.right {
 	line-height: 1.1em;
 }
 
+.about-pad {
+	padding-left: 24px; 
+}
 .results-bar {
 	text-align: center;
 }

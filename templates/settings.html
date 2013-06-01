@@ -12,6 +12,7 @@
 	<form method="post">
         
 
+<!-- Local settings on pace calculator page save own cookie now.
 			<div  id="rdioDefaultUnits-set" data-role="fieldcontain">
 		            <fieldset data-role="controlgroup" data-type="vertical" >
 		                <legend>
@@ -40,7 +41,7 @@
 		                    Activate custom distance
 		                </label>
 		            </fieldset>
-		        </div >
+		        </div > -->
  		        <div  id="defaultWeight-set"  >
 			            <div data-role="fieldcontain" >
 					    
@@ -75,7 +76,7 @@
 		            
 		        </div >
 		        <br/>
-		        <div  id="checkboxes5" data-role="fieldcontain" class="ui-disabled">
+		        <div  id="checkboxes5" data-role="fieldcontain" >
 		            <fieldset data-role="controlgroup"  data-type="vertical" >
 		                <legend>
 		                    Gender
@@ -94,12 +95,15 @@
 		                </label>
 		            </fieldset>
 		        </div > 
-		        <div >
-                        <fieldset class="ui-grid-a">
-                                <div class="ui-block-a"><a href="/" tabindex="5" data-role="button"> Cancel</a></div>
-                                <div class="ui-block-b"><input type="submit" tabindex="4" id="save_button" value="Save" /> </div>
-                                <span id="response"></span>
-                        </fieldset>
+
+
+		        
+                    <div class='showastabs center nobg'>
+                            <a href='#' data-rel='back' data-icon='delete' data-iconpos='left' data-role='button' data-inline='true'> Cancel</a>
+                            <button type="submit" data-icon='ok' data-iconpos='left' id="save_button" tabindex="4" data-role='button' data-inline='true'>Save</button>
+                            
+                            <span id="response"></span>
+                        
                     </div >
 
 		    

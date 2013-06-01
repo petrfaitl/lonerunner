@@ -70,12 +70,12 @@
 						<div id="rdioCustUnits" data-role="fieldcontain">
 				            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				                <legend class="collapse-legend">&nbsp;</legend>
-				                <input id="customUnitsKm" name="customUnits" tabindex="5" value="km"  type="radio"> <!-- checked="checked" -->
-				                <label for="customUnitsKm">
+				                <input id="customUnitskm" name="customUnits" tabindex="5" value="km"  type="radio"> <!-- checked="checked" -->
+				                <label for="customUnitskm">
 				                    km
 				                </label>
-				                <input id="customUnitsMiles" name="customUnits" tabindex="6" value="mile" type="radio">
-				                <label for="customUnitsMiles">
+				                <input id="customUnitsmile" name="customUnits" tabindex="6" value="mile" type="radio">
+				                <label for="customUnitsmile">
 				                    mile
 				                </label>
 				            </fieldset>
@@ -99,14 +99,11 @@
 					</label>
 				</fieldset>
 			</div> <!-- /Custom Distance selector -->
-
-			 <div class="submit-block">
-				<fieldset class="ui-grid-solo">
-					<div class="ui-block-a">
-					<input type="submit" tabindex="6" value="Calculate" /> 
-
-					</div>
-				</fieldset>			
+			<div class="submit-block">
+				<div data-role="fieldcontain" >
+						<label for="btnCalculate" >&nbsp;</label>
+						<button type="submit" id="btnCalculate" name="btnCalculate"  tabindex="6" ><i class="icon-road"></i> Calculate</button>
+				</div>
 			</div>
 
 	</form>
@@ -155,24 +152,37 @@
 				<a href="#" id="repeat" data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a>
 				{%endif %}
 			</div>
-
+			<div>rdioLocalUnits: {{rdioLocalUnits}}<br>
+			rdioDefaultUnits_miles: {{rdioDefaultUnits_miles}}<br>
+			chkDefaultCustDist: {{chkDefaultCustDist}}
+		</div>
 <!-- Custom scripts -->
 <script>
 	$(document).ready(function() {
 		
     	var custDistance = "{{chkDefaultCustDist}}";
+    	var localUnits = "{{rdioLocalUnits}}";
     	var mileUnits = "{{rdioDefaultUnits_miles}}";
+
+    	if (custDistance == 'None') {
+    		var custDistance = null;
+    	}
     	
     	if (custDistance) {
     		$('#CustDistance').removeClass("hidden");
     		$('#PreDistance').addClass("hidden");
     		$('#flip-custom').prop("checked", true).checkboxradio('refresh');
     	}
+    	if (localUnits){
+    		$('#customUnits'+localUnits).prop("checked",true).checkboxradio('refresh');
+
+    	} else {
 	    if (mileUnits){
-			$('#customUnitsMiles').prop("checked",true).checkboxradio('refresh');
+			$('#customUnitsmile').prop("checked",true).checkboxradio('refresh');
 			
 		} else {
-			$('#customUnitsKm').prop("checked",true).checkboxradio('refresh');
+			$('#customUnitskm').prop("checked",true).checkboxradio('refresh');
+		}
 		}
 });
 
@@ -190,13 +200,13 @@
 
 function scrollToAnchor(id){
 	var headerHeight = $("div#header").height();
-    var aTag = $("a[name='"+ id +"']");
+    var aTag = $(id);
     var scrollToPosition = $(aTag).offset().top - headerHeight;
     $('html,body').animate({scrollTop: scrollToPosition},'fast');
 	}
 
 $("#repeat").click(function() {
-   scrollTo('#top');
+   scrollToAnchor('#top');
 });
 
 $(".info").show().fadeOut(5000);

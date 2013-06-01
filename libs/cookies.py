@@ -1,4 +1,5 @@
 import hmac
+import logging
 
 
 def serialise_cookies(value_set):
@@ -12,7 +13,7 @@ def deserialise_cookies(cookie_string):
 	if cookie_string:
 		decrypted_cookie_set = decrypt_secure_cookie(cookie_string)
 		if decrypted_cookie_set:
-			decrypted_cookie_set = cookie_string.split("%")
+			decrypted_cookie_set = decrypted_cookie_set.split("%")
 			for pair in decrypted_cookie_set:
 				key_value= pair.split("=")
 				if not key_value[1]:
@@ -40,13 +41,13 @@ def decrypt_secure_cookie(hashed_cookie):
 		return None
 
 # some_dict ={"1":"abc", "2":"asd", "3":"sdg"}
-#cookie_string = "chkDefaultCustDist=|rdioDefaultUnits=km"
+#cookie_string = "chkDefaultCustDist=true%rdioLocalUnits=km|a956c665a3382564bc72e63ee8ea26bf"
 # print serialise_cookies(some_dict)
 #print deserialise_cookies(cookie_string)
 
 
 
 # create_secure_cookie( "something")
-#print decrypt_secure_cookie(create_secure_cookie( "something"))
+#print decrypt_secure_cookie(cookie_string)
 
 #print serialise_cookies({"chkDefaultCustDist":"true", "chk":"true"})

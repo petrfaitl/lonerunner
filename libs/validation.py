@@ -11,8 +11,18 @@ def validate_float(distance):
 	return distance and re_distance.match(distance)
 
 re_weight = re.compile(r'^\d+\.?\d*$')
-def validate_weight(weight):
-	return not weight or re_distance.match(weight)
+def validate_weight(weight, units ):
+	if weight:
+		if units == "kg":
+			if float(weight) < 20 or float(weight) >200:
+				return False
+		elif units == "lb":
+			if float(weight) < 40 or float(weight) >400:
+				return False
+		elif units == "st":
+			if float(weight) < 3.5 or float(weight) >31.5:
+				return False
+	return not weight or re_weight.match(weight)
 
 
-#print validate_weight("2.3")
+#print validate_weight("", "kg")
