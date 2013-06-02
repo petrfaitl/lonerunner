@@ -7,6 +7,27 @@
 
 
 <url>
-  <loc>http://lone-runner.appspot.com/</loc>
+  <loc>http://lone-runner.appspot.com/pace-calculator</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/pace-calculator/</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/units-and-distances/</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/share/</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/credits/</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/settings/</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/feedback/</loc>
+</url>
+<url>
+  <loc>http://lone-runner.appspot.com/about/</loc>
 </url>
 </urlset>
