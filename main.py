@@ -59,7 +59,7 @@ class Handler(webapp2.RequestHandler):
 
 	def set_session_cookie(self, key, value):
 		cookie_hash = create_secure_cookie(value)
-		self.response.headers.add_header("Set-Cookie", "%s = %s; " %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s = %s;  " %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
 
 	def read_session_cookie(self, cookie_name):
 		cookie_hash = self.request.cookies.get(cookie_name)
@@ -140,7 +140,7 @@ class Calculator(Handler):
 		
 		params.update(user_settings)
 		params.update(local_prefs)
-		self.render("calculator.html",  **params) #**user_settings
+		self.render("calculator.html",  **params) 
 
 class FAQ(Handler):
 	def get(self):
@@ -204,7 +204,7 @@ class Settings(Handler):
 		referer = self.read_session_cookie("referrer")
 		
 
-		#self.render("settings.html",  **user_settings)
+		
 		if has_error:
 			self.render("settings.html", **params)
 		elif not referer:
@@ -219,6 +219,10 @@ class About(Handler):
 		build =  "Build: %s" % time.ctime(os.path.getmtime("main.py"))
 		self.render("about.html", build_no = build)
 
+class Feedback(Handler):
+	def get(self):
+		self.render("feedback.html",)
+
 
 
 
@@ -231,5 +235,6 @@ app = webapp2.WSGIApplication([
 							('/credits/?', Credits),
 							('/share/?', Share),
 							('/settings/?', Settings),
-							('/about/', About),
+							('/about/?', About),
+							('/feedback/?', Feedback),
 							], debug=True)
