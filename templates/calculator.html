@@ -13,7 +13,7 @@
 					<div data-role="fieldcontain">
 						
 						<label for="txtPace">MOVING TIME</label> <!-- class="ui-hidden-accessible" -->
-						<input type="text" name="txtPace" tabindex="1"  id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}"/>
+						<input type="text" name="txtPace" tabindex="1"  id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}">
 						{% if error %}
 						<div class="info message"><i class="icon-exclamation-sign"></i> <span>{{error}}</span></div>
 						{% endif %}
@@ -149,7 +149,23 @@
 					</div>
 
 				<!-- <span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span> -->
-				<a href="#" id="repeat" data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a>
+				<div id="result_info"><a href="#popupinfo" data-rel="popup" data-role="button" data-iconpos="left" data-inline="true" data-icon="info" class="left">Info</a></div>
+				<div id="repeat"><a href="#"  data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a></div>
+ 
+				<div data-role="popup" id="popupinfo">
+					<div data-role='header' data-theme='b'>
+						<h1 id="h1_popupinfo">Info</h1>
+					</div>
+					<div data-role='content' data-theme='b'>
+						<p>These results represent theoretical running time for most popular distances, based on your time or pace and distance. It should help you determine the optimal running pace to achieve your target time, provided you can maintain your pace over the whole distance.</p>
+
+						<p>For shorter distances, such as 400m and 800m, this will provide a great indicator for your lap time.<p>
+					  	<div class='showastabs center nobg'>
+							<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Okay</a>
+						</div>
+					</div>
+				</div>
+				
 				{%endif %}
 			</div>
 			

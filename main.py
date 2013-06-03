@@ -41,7 +41,7 @@ class Handler(webapp2.RequestHandler):
 	def set_cookie(self, cookie_key, value_set):
 		expires = (datetime.datetime.now() + datetime.timedelta(weeks=52)).strftime('%a, %d %b %Y %H:%M:%S GMT')
 		serial_cookies = serialise_cookies(value_set)
-		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lone-runner.appspot.com; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s=%s; Domain= lonerunner.info; Path=/; Expires=%s" %(cookie_key, serial_cookies, expires)) #; Domain= lonerunner.info;
 	
 	def read_cookie(self, cookie_name):
 		cookie_val = self.request.cookies.get(cookie_name)
@@ -59,7 +59,7 @@ class Handler(webapp2.RequestHandler):
 
 	def set_session_cookie(self, key, value):
 		cookie_hash = create_secure_cookie(value)
-		self.response.headers.add_header("Set-Cookie", "%s = %s; Domain= lone-runner.appspot.com; " %(key, cookie_hash) ) #Domain= lone-runner.appspot.com;
+		self.response.headers.add_header("Set-Cookie", "%s = %s; Domain= lonerunner.info; " %(key, cookie_hash) ) #Domain= lonerunner.info;
 
 	def read_session_cookie(self, cookie_name):
 		cookie_hash = self.request.cookies.get(cookie_name)
@@ -154,6 +154,16 @@ class Credits(Handler):
 class Share(Handler):
 	def get(self):
 		self.render("share.html")
+
+	def post(self):
+		has_error = False
+		params = {}
+
+		if params:
+			self.render("share.html", **params)
+		else:
+			self.redirect("/")
+
 
 class Settings(Handler):
 

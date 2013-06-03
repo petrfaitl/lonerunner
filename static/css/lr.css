@@ -59,6 +59,19 @@ label.ui-submit {
 	   clear: both;
 	}
 }
+.left{
+	float: left;
+	margin-left: 0;
+	display: inline-block;
+	.left:after { 
+	   content: "."; 
+	   visibility: hidden; 
+	   display: block; 
+	   height: 0; 
+	   clear: both;
+	}
+}
+
 
 .ui-table-columntoggle-btn {
 	display: none;
@@ -95,4 +108,35 @@ label.ui-submit {
 
 .ui-bar {
 	padding: .4em 5px;
+}
+
+#ui-btn-share {
+	position: absolute;
+	top: 3px;
+	right: 60px;
+
+}
+
+#ui-btn-menu {
+	position: absolute;
+	top: 3px;
+	right: 5px;
+}
+#popupinfo-screen {
+	background-color: rgba(0,0,0,0.1);
+}
+
+#h1_popupinfo {
+	padding: 7px 7px 7px 30px;
+}
+
+.ui-li-divider {
+	line-height: 18px;
+	font-weight: 100; 
+	font-size: 20px;
+	padding: .8em 15px;
+}
+
+.ui-title {
+	margin: 10px 80px 7px 34px;
 }
