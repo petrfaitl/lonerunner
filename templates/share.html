@@ -10,44 +10,89 @@
 </div>
 <br>
 	<div class='inset'>
-			<form method="post">
+			<form method="post" id="sendForm">
 				<div data-role="fieldcontain">
-					<label for="txtSenderName">Your Name</label>
-					<input type="text" name="txtSenderName" id="txtSenderName" tabindex="1"  value="{{txtSenderName}}" >
-				</div>
-				<div data-role="fieldcontain">
-					<label for="txtSenderEmail">Your Email Address</label>
-					<input type="text" name="txtSenderEmail" id="txtSenderEmail" tabindex="2" placeholder="@" value="{{txtSenderEmail}}" >
-				</div>
-				<div data-role="fieldcontain">
-					<label for="txtRecipientName">Recipient's Name</label>
-					<input type="text" name="txtRecipientName" id="txtRecipientName" tabindex="3"  value="{{txtRecipientName}}" >
-				</div>
-				<div data-role="fieldcontain">
-					<label for="txtRecipientEmail">Recipient's Email Address</label>
-					<input type="text" name="txtRecipientEmail" id="txtRecipientEmail" tabindex="4" placeholder="@" value="{{txtRecipientEmail}}" >
-				</div>
-				<div data-role="fieldcontain">
-					<label for="selCannedResponse">Add Message</label>
-					<select type="text" name="selCannedResponse" id="selCannedResponse" tabindex="5" value="{{selCannedResponse}}" >
-						<option value="Check_this_app">Check this great running app. You'll like it.</option>
-						<option value="I_m_using_this_site">I'm using this site for my running pace.</option>
-						<option value="What_s_your_running_speed">What's your running speed? I use this app to calculate mine.</option>
-						<option value="How_quickly_next">How quickly do we need to run next time?</option>
-						<option value="Catch_me_if_you_can">Catch me if you can :)</option>
-						<option value="Custom">Custom message</option>
-					</select>
+					<label for="txtSenderName" class="ui-hidden-accessible">Your Name</label>
+					<input type="text" name="txtSenderName" id="txtSenderName" tabindex="1" placeholder="Your Name" value="{{txtSenderName}}" >
+					{% if error_sender_name %}<div class="message info"><i class="icon-exclamation-sign"></i>{{error_sender_name}}</div>{% endif %}
 				</div>
 				
 				<div data-role="fieldcontain">
-					<label for="btnSend" >&nbsp;</label>
-					<button type="submit" id="btnSend" name="btnSend"  tabindex="6" ><i class="icon-envelope"></i> Preview &amp; Send</button>
+					<label for="txtSenderEmail" class="ui-hidden-accessible">Your Email Address</label>
+					<input type="email" name="txtSenderEmail" id="txtSenderEmail" tabindex="2" placeholder="Your Email Address" value="{{txtSenderEmail}}" >
+				</div>
+				{% if error_sender_email %}<div class="message info"><i class="icon-exclamation-sign"></i>{{error_sender_email}}</div>{% endif %}
+				<div data-role="fieldcontain">
+					<label for="txtRecipientName" class="ui-hidden-accessible">Recipient's Name</label>
+					<input type="text" name="txtRecipientName" id="txtRecipientName" tabindex="3" placeholder="Recipient's Name"  value="{{txtRecipientName}}" >
+				</div>
+				{% if error_recipient_name %}<div class="message info"><i class="icon-exclamation-sign"></i>{{error_recipient_name}}</div>{% endif %}
+				<div data-role="fieldcontain">
+					<label for="txtRecipientEmail" class="ui-hidden-accessible">Recipient's Email Address</label>
+					<input type="email" name="txtRecipientEmail" id="txtRecipientEmail" tabindex="4" placeholder="Recipient's Email Address" value="{{txtRecipientEmail}}" >
+				</div>
+				{% if error_recipient_email %}<div class="message info"><i class="icon-exclamation-sign"></i>{{error_recipient_email}}</div>{% endif %}
+				<div data-role="fieldcontain">
+					<label for="selCannedResponse" class="ui-hidden-accessible">Add Message</label>
+					<select type="text" name="selCannedResponse" id="selCannedResponse" tabindex="5" value="{{selCannedResponse}}" >
+						<option value="Check this great running app. You'll like it.">Check this great running app. You'll like it.</option>
+						<option value="I'm using this site for my running pace.">I'm using this site for my running pace.</option>
+						<option value="What's your running speed? I use this app to calculate mine.">What's your running speed? I use this app to calculate mine.</option>
+						<option value="How quickly do we need to run next time?">How quickly do we need to run next time?</option>
+						<option value="Catch me if you can :)">Catch me if you can :)</option>
+						<option value="Custom">Custom message</option>
+					</select>
+				</div>
+
+				<div data-role="fieldcontain" id="custMessageBlock" class="hidden">
+					<label for="txtareaCustMessage" class="ui-hidden-accessible">Your Message</label>
+					<textarea name="txtareaCustMessage" maxlength="1000" id="txtareaCustMessage" tabindex="4" placeholder="Add your personal message">{{txtareaCustMessage}}</textarea>
+
+				</div>
+				{% if error_textarea %}<div class="message info"><i class="icon-exclamation-sign"></i>{{error_textarea}}</div>{% endif %}
+				
+				<div data-role="fieldcontain" >
+					<label for="btnSend" class="ui-hidden-accessible">Send</label>
+					<button type="submit" id="btnSend" name="btnSend"  tabindex="6" ><i class="icon-envelope"></i> Send</button>
 				</div>
 				{% if send_error %}
 				<div id="send_error" class="message info"><i class="icon-exclamation-sign"></i>{{send_error}}</div>
 				{% endif %}
 			</form>
+
+
+			<div id="sendConfirm" class="hidden">
+				<p>Your message has now been sent to {{txtRecipientName}}. <br>
+				Thanks for spreading the good word.</p>
+				<div class='showastabs center nobg'>
+					<a href='/' data-rel='home' data-icon='chevron-left' data-iconpos='left' data-role='button' data-inline='true'>Back</a>
+				</div>
+			</div>
 </div>
 
+
+<script>
+	$("#selCannedResponse").change(function() {
+		if ($(this).val() == "Custom") {
+			$("#custMessageBlock").removeClass("hidden");
+		}else{
+			$("#custMessageBlock").addClass("hidden");
+		}
+
+
+	});
+
+	$(document).ready(function() {
+		var sendConfirm = "{{page_confirm}}";
+    	
+    	if (sendConfirm) {
+    		$('#sendConfirm').removeClass("hidden");
+    		$('#sendForm').addClass("hidden");
+	    }
+	});
+
+	$(".info").show().fadeOut(4000);
+
+</script>
 
 {% endblock %}

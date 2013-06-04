@@ -25,4 +25,15 @@ def validate_weight(weight, units ):
 	return not weight or re_weight.match(weight)
 
 
+re_name = re.compile(r"^[a-zA-Z- ]{2,25}$")
+def validate_name(name):
+	return name and re_name.match(name)
+
+re_email = re.compile(r"^[\S]+@[\S]+\.[\S]+$")
+def validate_email(email):
+	return email and re_email.match(email)
+
 #print validate_weight("", "kg")
+
+#print validate_name("Olc-sskjhkjhk-jhbjhbj")
+#print validate_email("themadczech@gmail-ggfg.c")

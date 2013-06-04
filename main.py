@@ -19,10 +19,11 @@ import webapp2
 import jinja2
 import datetime, time
 from libs.converters import converter, paceunits
-from libs.validation import validate_input, validate_float, validate_weight
+from libs.validation import validate_input, validate_float, validate_weight, validate_name, validate_email
 from libs.cookies import serialise_cookies, deserialise_cookies, create_secure_cookie, decrypt_secure_cookie
 import logging
 from urlparse import urlparse
+from google.appengine.api import mail
 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
@@ -157,12 +158,68 @@ class Share(Handler):
 
 	def post(self):
 		has_error = False
-		params = {}
+		sender_name = self.request.get("txtSenderName")
+		sender_email = self.request.get("txtSenderEmail")
+		recipient_name = self.request.get("txtRecipientName")
+		recipient_email = self.request.get("txtRecipientEmail")
+		email_content = self.request.get("selCannedResponse")
+		cust_email_content = self.request.get("txtareaCustMessage")
 
-		if params:
-			self.render("share.html", **params)
+		if email_content == "Custom":
+			email_content = cust_email_content
+
+		params = dict(txtSenderName=sender_name, txtSenderEmail=sender_email, txtRecipientName=recipient_name, txtRecipientEmail=recipient_email, txtareaCustMessage=email_content )
+		
+
+		if not validate_name(sender_name):
+			has_error = True
+			params["error_sender_name"] = "There is something not just right"
+		elif not validate_email(sender_email):
+			has_error = True
+			params["error_sender_email"] = "There is something not just right"
+		elif not validate_name(recipient_name):
+			has_error = True
+			params["error_recipient_name"] = "There is something not just right"
+		elif not validate_email(recipient_email):
+			has_error = True
+			params["error_recipient_email"]	= "There is something not just right"		
+		
+		if not email_content:
+			has_error = True
+			params["error_textarea"] = "Surely, you'd like to say something. Try again."
+
+
+		
+		logging.error(params)
+
+		message = mail.EmailMessage(sender="LoneRunner Pace Calculator <petr.faitl@lonerunner.info>",
+                            subject="Your friend %s thought you might like this app" %sender_name)
+
+		message.to = "%s <%s>" %(recipient_name, recipient_email)
+		message.body = """
+Hi %s,
+
+%s
+
+Visit at http://www.lonerunner.info/
+LoneRunner a running Calculator and pace converter app.
+
+
+Regards,
+%s
+
+
+Sent from LoneRunner Pace Calculator webapp. You have received this email as somebody, you might know, sent this to your email address.
+If you think this is spam or error, please send email to spam@lonerunner.info . 
+""" %(recipient_name, email_content, sender_name)
+
+		
+
+		if has_error:
+			self.render("share.html", error = has_error, **params)
 		else:
-			self.redirect("/")
+			message.send()
+			self.render("share.html", txtRecipientName = recipient_name, page_confirm = True)
 
 
 class Settings(Handler):

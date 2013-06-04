@@ -120,7 +120,7 @@ label.ui-submit {
 #ui-btn-menu {
 	position: absolute;
 	top: 3px;
-	right: 5px;
+	right: 10px;
 }
 #popupinfo-screen {
 	background-color: rgba(0,0,0,0.1);
