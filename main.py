@@ -201,15 +201,15 @@ Hi %s,
 
 %s
 
+LoneRunner a running calculator and pace converter app.
 Visit at http://www.lonerunner.info/
-LoneRunner a running Calculator and pace converter app.
 
 
 Regards,
 %s
 
 
-Sent from LoneRunner Pace Calculator webapp. You have received this email as somebody, you might know, sent this to your email address.
+Sent from LoneRunner Pace Calculator webapp. You have received this email as somebody, you might know, thought you'd find it useful.
 If you think this is spam or error, please send email to spam@lonerunner.info . 
 """ %(recipient_name, email_content, sender_name)
 
