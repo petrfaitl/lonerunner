@@ -19,7 +19,7 @@ import webapp2
 import jinja2
 import datetime, time
 from libs.converters import converter, paceunits
-from libs.validation import validate_input, validate_float, validate_weight, validate_name, validate_email
+from libs.validation import validate_input, validate_float, validate_weight, validate_name, validate_email, validate_age
 from libs.cookies import serialise_cookies, deserialise_cookies, create_secure_cookie, decrypt_secure_cookie
 import logging
 from urlparse import urlparse
@@ -246,22 +246,32 @@ class Settings(Handler):
 		txtWeight = self.request.get("txtWeight")
 		rdioDefaultGender = self.request.get("rdioDefaultGender")
 		rdioDefaultWeight = self.request.get("rdioDefaultWeight")
+		txtAge = self.request.get("txtAge")
 
-		if rdioDefaultUnits_value:
-			user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "true" 
-
-		
-		if chkDefaultCustDist:
-			user_prefs["chkDefaultCustDist"] = "true"
+		# if rdioDefaultUnits_value:
+		# 	user_prefs["rdioDefaultUnits_%s" %rdioDefaultUnits_value]= "true" 
 
 		
-		if validate_weight(txtWeight,rdioDefaultWeight):
-			user_prefs["txtWeight"] = txtWeight
-			user_prefs["rdioDefaultWeight"] = rdioDefaultWeight 
-		else:
+		# if chkDefaultCustDist:
+		# 	user_prefs["chkDefaultCustDist"] = "true"
+
+		if not validate_age(txtAge):
+			params["error_age"] = "Enter a whole number e.g 34"
+			params["txtAge"] = txtAge
+			has_error = True
+
+		if not validate_weight(txtWeight,rdioDefaultWeight):
 			params["error_weight"] = "That doesn't look right"
 			params["txtWeight"] = txtWeight
 			has_error = True
+			 
+		else:
+			user_prefs["txtWeight"] = txtWeight
+			user_prefs["rdioDefaultWeight"] = rdioDefaultWeight
+			user_prefs["txtAge"] = txtAge
+
+
+			
 
 		user_prefs["rdioDefaultGender_%s" %rdioDefaultGender] = "true"
 

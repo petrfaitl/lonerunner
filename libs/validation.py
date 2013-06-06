@@ -12,7 +12,7 @@ def validate_float(distance):
 
 re_weight = re.compile(r'^\d+\.?\d*$')
 def validate_weight(weight, units ):
-	if weight:
+	if weight.isdigit():
 		if units == "kg":
 			if float(weight) < 20 or float(weight) >200:
 				return False
@@ -23,6 +23,14 @@ def validate_weight(weight, units ):
 			if float(weight) < 3.5 or float(weight) >31.5:
 				return False
 	return not weight or re_weight.match(weight)
+
+re_age = re.compile(r"^\d{1,3}$")
+def validate_age(age):
+	if age.isdigit():
+		if int(age) < 3 or int(age) > 115:
+			return False
+	return age and re_age.match(age)
+
 
 
 re_name = re.compile(r"^[a-zA-Z- ]{2,25}$")
@@ -37,3 +45,4 @@ def validate_email(email):
 
 #print validate_name("Olc-sskjhkjhk-jhbjhbj")
 #print validate_email("themadczech@gmail-ggfg.c")
+print validate_age("114")

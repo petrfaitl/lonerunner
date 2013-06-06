@@ -140,3 +140,7 @@ label.ui-submit {
 .ui-title {
 	margin: 10px 80px 7px 34px;
 }
+
+.ui-input-text.ui-body-b::-webkit-input-placeholder {
+	color: rgba(255,255,255, 0.4)
+}

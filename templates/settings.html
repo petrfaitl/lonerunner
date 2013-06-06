@@ -48,7 +48,7 @@
 			            	<label for="txtWeight" >
 			                    Weight
 			                </label>
-			                <input id="txtWeight" name="txtWeight"  value="{{txtWeight}}" type="text">
+			                <input id="txtWeight" name="txtWeight"  value="{{txtWeight}}" placeholder="Your weight" type="text">
 			                
 			            </div>
 		                <div data-role="fieldcontain">
@@ -75,6 +75,18 @@
 		                </div>
 		            
 		        </div >
+		        <br>
+		        <div id="defaultAge" data-role="fieldcontain" >
+					    
+			            	<label for="txtAge" >
+			                    Age
+			                </label>
+			                <input id="txtAge" name="txtAge"  value="{{txtAge}}" placeholder="Enter number only" type="text">
+				            {% if error_age %}
+				            <div class="message info"><i class="icon-exclamation-sign"></i><span>{{error_age}}</span></div>
+				            {% endif %}
+			            </div>
+
 		        <br/>
 		        <div  id="checkboxes5" data-role="fieldcontain" >
 		            <fieldset data-role="controlgroup"  data-type="vertical" >
