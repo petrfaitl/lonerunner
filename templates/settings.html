@@ -45,8 +45,7 @@
  		        <div  id="defaultWeight-set"  >
 			            <div data-role="fieldcontain" >
 					    
-			            	<label for="txtWeight" >
-			                    Weight
+			            	<label for="txtWeight" >Weight <div class="infobtn"><a href="#popupWeight" data-rel="popup" data-role="button" data-iconpos="left" data-inline="true" data-icon="info" class="infobtn"></a></div>
 			                </label>
 			                <input id="txtWeight" name="txtWeight"  value="{{txtWeight}}" placeholder="Your weight" type="text">
 			                
@@ -78,8 +77,7 @@
 		        <br>
 		        <div id="defaultAge" data-role="fieldcontain" >
 					    
-			            	<label for="txtAge" >
-			                    Age
+			            	<label for="txtAge" >Age <div class="infobtn"><a href="#popupAge" data-rel="popup" data-role="button" data-iconpos="left" data-inline="true" data-icon="info" class="infobtn"></a></div>
 			                </label>
 			                <input id="txtAge" name="txtAge"  value="{{txtAge}}" placeholder="Enter number only" type="text">
 				            {% if error_age %}
@@ -90,8 +88,7 @@
 		        <br/>
 		        <div  id="checkboxes5" data-role="fieldcontain" >
 		            <fieldset data-role="controlgroup"  data-type="vertical" >
-		                <legend>
-		                    Gender
+		                <legend>Gender <div class="infobtn"><a href="#popupGender" data-rel="popup" data-role="button" data-iconpos="left" data-inline="true" data-icon="info" class="infobtn"></a></div>
 		                </legend>
 		                <input id="rdioDefaultGender_female" name="rdioDefaultGender" value="female" {{rdioDefaultGender_female}} type="radio">
 		                <label for="rdioDefaultGender_female">
@@ -118,8 +115,50 @@
                         
                     </div >
 
-		    
-    </div>
+
+				<div data-role="popup" id="popupWeight">
+					<div data-role='header' data-theme='b'>
+						<h1 id="h1_popupinfo">Weight</h1>
+					</div>
+					
+					<div data-role='content' data-theme='b'>
+						<h5>Weight is used to calculate your Calorie expenditure.</h5>
+						<h5>We do not store this information on our servers.</h5>
+					  	<div class='showastabs center nobg'>
+							<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Dismiss</a>
+						</div>
+					</div>
+				</div>
+				<div data-role="popup" id="popupAge">
+					<div data-role='header' data-theme='b'>
+						<h1 id="h1_popupinfo">Age</h1>
+					</div>
+				
+				<div data-role='content' data-theme='b'>
+					<h5>Age is used to calculate your Training Running Pace.</h5>
+					<h5>We do not store this information on our servers.</h5>
+				  	<div class='showastabs center nobg'>
+						<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Dismiss</a>
+					</div>
+				</div>
+				</div>
+				<div data-role="popup" id="popupGender">
+					<div data-role='header' data-theme='b'>
+						<h1 id="h1_popupinfo">Gender</h1>
+					</div>
+				
+				<div data-role='content' data-theme='b'>
+					<h5>Gender is used to calculate your Training Running Pace.</h5>
+					<h5>We do not store this information on our servers.</h5>
+				  	<div class='showastabs center nobg'>
+						<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Dismiss</a>
+					</div>
+				</div>
+				</div>
+					    
+    </div>		    
+			    
+
 
 
 <script>

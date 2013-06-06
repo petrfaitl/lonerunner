@@ -62,7 +62,7 @@ def converter(pace, distance , units, weight, weight_units):
 		if distanceIter == "min/km" or distanceIter == "min/mile":
 			continue
 		
-		elif int(distance) > 1 and distanceIter == units: # >1 is used for preventing 1 km or 1 mile error as a result of output filering; 
+		elif distance and int(distance) > 1 and distanceIter == units: # >1 is used for preventing 1 km or 1 mile error as a result of output filering; 
 			continue
 
 		else:
