@@ -300,6 +300,10 @@ class Feedback(Handler):
 	def get(self):
 		self.render("feedback.html")
 
+class Privacy(Handler):
+	def get(self):
+		self.render("privacy.html")
+
 
 
 
@@ -314,4 +318,5 @@ app = webapp2.WSGIApplication([
 							('/settings/?', Settings),
 							('/about/?', About),
 							('/feedback/?', Feedback),
+							('/privacy/?', Privacy ),
 							], debug=True)

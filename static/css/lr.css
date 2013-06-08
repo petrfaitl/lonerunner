@@ -134,17 +134,23 @@ label.ui-submit {
 
 
 }
-#popupinfo-screen, #popupWeight-screen, #popupAge-screen , #popupGender-screen{
+.ui-popup-screen {
 	background-color: rgba(0,0,0,0.1);
-	
 }
 
 #popupinfo-popup, #popupWeight-popup, #popupAge-popup, #popupGender-popup{
 	border: solid 1px #ffffff;
 }
 
-#h1_popupinfo {
-	padding: 7px 7px 7px 30px;
+.ui-popup.ui-body-b {
+	background: #333 !important;
+}
+
+
+.h5popup {
+	padding: 5px 15px;
+	margin: 0;
+
 }
 
 .ui-li-divider {
@@ -154,8 +160,9 @@ label.ui-submit {
 	padding: .8em 15px;
 }
 
-.ui-title {
-	margin: 10px 80px 7px 34px;
+.ui-body-b .ui-popup .ui-title {
+	
+	padding: 7px 7px 7px 30px;
 }
 
 .ui-input-text.ui-body-b::-webkit-input-placeholder {

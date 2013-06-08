@@ -79,7 +79,7 @@
 					    
 			            	<label for="txtAge" >Age <div class="infobtn"><a href="#popupAge" data-rel="popup" data-role="button" data-iconpos="left" data-inline="true" data-icon="info" class="infobtn"></a></div>
 			                </label>
-			                <input id="txtAge" name="txtAge"  value="{{txtAge}}" placeholder="Enter number only" type="text">
+			                <input id="txtAge" name="txtAge"  value="{{txtAge}}" placeholder="Your age in years" type="text">
 				            {% if error_age %}
 				            <div class="message info"><i class="icon-exclamation-sign"></i><span>{{error_age}}</span></div>
 				            {% endif %}
@@ -118,12 +118,12 @@
 
 				<div data-role="popup" id="popupWeight">
 					<div data-role='header' data-theme='b'>
-						<h1 id="h1_popupinfo">Weight</h1>
+						<h1>Weight</h1>
 					</div>
 					
 					<div data-role='content' data-theme='b'>
-						<h5>Weight is used to calculate your Calorie expenditure.</h5>
-						<h5>We do not store this information on our servers.</h5>
+						<p>Weight is used to calculate your Calorie expenditure.</p>
+						<h5 class="h5popup">How do we use your data? Read our <a href="/privacy/">Privacy Policy.</a></h5>
 					  	<div class='showastabs center nobg'>
 							<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Dismiss</a>
 						</div>
@@ -131,12 +131,12 @@
 				</div>
 				<div data-role="popup" id="popupAge">
 					<div data-role='header' data-theme='b'>
-						<h1 id="h1_popupinfo">Age</h1>
+						<h1>Age</h1>
 					</div>
 				
 				<div data-role='content' data-theme='b'>
-					<h5>Age is used to calculate your Training Running Pace.</h5>
-					<h5>We do not store this information on our servers.</h5>
+					<p>Age is used to calculate your Training Running Pace.</p>
+					<h5 class="h5popup">How do we use your data? Read our <a href="/privacy/">Privacy Policy.</a></h5>
 				  	<div class='showastabs center nobg'>
 						<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Dismiss</a>
 					</div>
@@ -144,12 +144,12 @@
 				</div>
 				<div data-role="popup" id="popupGender">
 					<div data-role='header' data-theme='b'>
-						<h1 id="h1_popupinfo">Gender</h1>
+						<h1>Gender</h1>
 					</div>
 				
 				<div data-role='content' data-theme='b'>
-					<h5>Gender is used to calculate your Training Running Pace.</h5>
-					<h5>We do not store this information on our servers.</h5>
+					<p>Gender is used to calculate your Training Running Pace.</p>
+					<h5 class="h5popup">How do we use your data? Read our <a href="/privacy/">Privacy Policy.</a></h5>
 				  	<div class='showastabs center nobg'>
 						<a href='#' data-rel='back' data-icon='ok' data-iconpos='left' data-role='button' data-inline='true'>Dismiss</a>
 					</div>
