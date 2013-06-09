@@ -14,8 +14,6 @@
 	<meta property="og:image" content="http://www.lonerunner.info/static/lonerunner-v3.png"/>
 	<meta property="og:description" content="Running pace converter and calculator app. Convert min/km to min/mile pace and back. Running equivalent pace calculator for distances from 400m, to 5k and 10k distances."/>
 
-	
-
 	<!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
     <link rel="stylesheet" href="/static/css/font-awesome.min.css" />
 
@@ -42,10 +40,7 @@
 
     <script>
     $.mobile.ajaxEnabled = false;
-    </script>
-
- 
-	
+    </script>	
 </head>
 <body>
 	<div id="page1" data-role="page" data-theme="b">
@@ -59,9 +54,6 @@
             <li data-icon="gear"><a href="/settings/" >Settings</a></li>
         </ul>
 </div>
-
-
-
 <div data-role="popup" id="menu">
     <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
                     
@@ -69,8 +61,6 @@
                     <li><a href="/privacy/">Privacy and Cookie Policy</a></li>
                     <li><a href="/feedback/" >Send Feedback</a></li>
                     <li><a href="/about/"  >About</a></li>
-
-
                 </ul>
 </div>
 
@@ -80,18 +70,15 @@
                     <li data-icon="google-plus-sign"><a href="https://plus.google.com/share?url=http://lonerunner.info" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=auto');return false;">Google+</a></li>
                     <li data-icon="facebook-sign"><a  href="https://www.facebook.com/dialog/feed?
-					app_id=133703520161405&
-					link=http://www.lonerunner.info/pace-calculator/&
-					picture=http://www.lonerunner.info/static/lonerunner-v3.png&
-					name=LoneRunner%20Running%20Pace%20Converter&
-					caption=Convert%20your%20running%20time%20to%20popular%20pace%20and%20distances.&
-					description=LoneRunner%20is%20a%20running%20pace%20calculator%20and%20conversion%20app,%20designed%20to%20help%20fellow%20runners%20and%20enthusiasts%20understand%20units%20and%20their%20conversions%20to%20and%20fro%20min%20per%20km%20and%20min%20per%20mile.&
+					app_id=133703520161405&amp;
+					link=http://www.lonerunner.info/pace-calculator/&amp;
+					picture=http://www.lonerunner.info/static/lonerunner-v3.png&amp;
+					name=LoneRunner%20Running%20Pace%20Converter&amp;
+					caption=Convert%20your%20running%20time%20to%20popular%20pace%20and%20distances.&amp;
+					description=LoneRunner%20is%20a%20running%20pace%20calculator%20and%20conversion%20app,%20designed%20to%20help%20fellow%20runners%20and%20enthusiasts%20understand%20units%20and%20their%20conversions%20to%20and%20fro%20min%20per%20km%20and%20min%20per%20mile.&amp;
 					redirect_uri=http://www.lonerunner.info/">Facebook</a></li>
-                    <li data-icon="twitter-sign"><a target=_blank href="http://twitter.com/share?text=Awesome%20app%20for%20runners%20-%20pace%20calculator&url=http://www.lonerunner.info">Twitter</a></li>
+                    <li data-icon="twitter-sign"><a href="http://twitter.com/share?text=Awesome%20app%20for%20runners%20-%20pace%20calculator&amp;url=http://www.lonerunner.info">Twitter</a></li>
                     <li data-icon="envelope-alt"><a href="/share/">Email</a></li>
-                    
-
-
                 </ul>
 </div>
 
@@ -101,16 +88,11 @@
     <a href="#share-menu" data-rel="popup" data-inline="true" data-role="button" id="ui-btn-share" ><i class='icon-share'></i></a>
     <a href="#menu" data-rel="popup" data-inline="true" data-role="button" id="ui-btn-menu" ><i class='icon-ellipsis-vertical'></i></a>
 </div>
-	
-		<!-- <a name="top"></a> -->
+
 		<div id="top" data-role="content" >
-			
-				  
 				  
 				  {% block content %}
 				  {% endblock %}
-				  
-				  
 			
 		</div>
 

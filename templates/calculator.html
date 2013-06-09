@@ -1,18 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}Pace Calculator{% endblock %}
-
-
 {% block content %}
 
 <div class='inset'>
-	<h3>Convert running pace</h3> <!-- <span class="time" ></span> -->
+	<h3>Convert running pace</h3> 
 </div>
 	<form method="post" name="frm1">
 				<div id="pace" class="pace">
 					<div data-role="fieldcontain">
 						
-						<label for="txtPace">MOVING TIME</label> <!-- class="ui-hidden-accessible" -->
+						<label for="txtPace">MOVING TIME</label> 
 						<input type="text" name="txtPace" tabindex="1"  id="txtPace" placeholder="(hh:)mm:ss" data-clear-btn="true" value="{{txtPace}}">
 						{% if error %}
 						<div class="info message"><i class="icon-exclamation-sign"></i> <span>{{error}}</span></div>
@@ -20,14 +18,14 @@
 					</div>
 				</div>
 
-
-
 				<div id="PreDistance" class="PreDistance">
 					<div data-role="fieldcontain" >
 					<label for="selUnits" >DISTANCE</label>
 					
 					<select name="selUnits" tabindex="2" id="selUnits">
-						<option value="">Select Units</option>
+						{% if not output %}
+						<option selected value="">Select Units</option>
+						{% endif %}
 						{% if output %}
 							<optgroup label="Last Selected">
 								<option selected value="{{selUnits}}">{{selUnits}}</option>
@@ -55,9 +53,6 @@
 					
 					</div>
 				</div>
-					
-					
-				
 <!-- custom distances -->
 			
 					<div id="CustDistance" class="CustDistance hidden"> 
@@ -70,7 +65,7 @@
 						<div id="rdioCustUnits" data-role="fieldcontain">
 				            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				                <legend class="collapse-legend">&nbsp;</legend>
-				                <input id="customUnitskm" name="customUnits" tabindex="5" value="km"  type="radio"> <!-- checked="checked" -->
+				                <input id="customUnitskm" name="customUnits" tabindex="5" value="km"  type="radio"> 
 				                <label for="customUnitskm">
 				                    km
 				                </label>
@@ -80,8 +75,6 @@
 				                </label>
 				            </fieldset>
 				        </div>
-								
-
 						
 					</div>
 					{% if error_units %}
@@ -122,7 +115,7 @@
 							{% endif %}
 
 					    </div></div>
-					</div><!-- /grid-a -->
+					</div><!-- /grid-b -->
 	
 					<table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-column-btn-text="" class="ui-responsive table-stroke"> 
 						<thead>
@@ -148,7 +141,7 @@
 					    <div id="results-block-b" class="ui-block-b"><div class="ui-bar ui-bar-b results-bar">{% if calories == "-" %}<span>Enter your weight in <a href="/settings/">settings</a></span> {% else %}{{calories}}{% endif %}<br><span>CALORIES</span></div></div>
 					</div>
 
-				<!-- <span class="speed">Your running speed is {{speed}}km/h ({{speed_miles}}miles/h) </span> -->
+				
 				<div id="result_info"><a href="#popupinfo" data-rel="popup" data-role="button" data-iconpos="left" data-inline="true" data-icon="info" class="left">Info</a></div>
 				<div id="repeat"><a href="#"  data-role="button" data-iconpos="right" data-inline="true" data-icon="repeat" class="right">Repeat</a></div>
  
@@ -237,6 +230,4 @@ $(".info").show().fadeOut(5000);
 		});
 
 </script>
-
-
 {% endblock %}

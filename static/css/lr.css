@@ -1,21 +1,6 @@
-.lone-runner-ico:before {
-  background-image: url( "/static/webfurniture/sole-bk.png" );
-  background-size: 18px 18px;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-  .lone-runner-ico:before {
-    background-image: url( "/static/webfurniture/sole-bk-HD.png" );
-    background-size: 18px 18px;
-  }
-  
-}
-
-
-
 .PreDistance, .CustDistance, .pace, .flipCustDistance, .submit-block, .chkCustDist {
 	display: block;
-	padding: 0.2em 15px;
+	padding: 0.2em 1em;
 }
 .hidden {
 	display: none;
@@ -27,7 +12,6 @@
 .collapse-legend {
 	max-width: 340px;
 	display: none;
-
 }
 
 legend {
@@ -72,7 +56,6 @@ label.ui-submit {
 	}
 }
 
-
 .ui-table-columntoggle-btn {
 	display: none;
 }
@@ -83,7 +66,7 @@ label.ui-submit {
 
 .message i, .error i, .info i{
 	-webkit-animation:none;
-	font-size: 16px;
+	font-size: 1em;
 	line-height: 1.1em;
 }
 
@@ -114,7 +97,6 @@ label.ui-submit {
 	position: absolute;
 	top: 3px;
 	right: 60px;
-
 }
 
 #ui-btn-menu {
@@ -131,9 +113,8 @@ label.ui-submit {
 	border-top: none;
 	border-bottom: none;
 	border-right: none;
-
-
 }
+
 .ui-popup-screen {
 	background-color: rgba(0,0,0,0.1);
 }
@@ -148,15 +129,15 @@ label.ui-submit {
 
 
 .h5popup {
-	padding: 5px 15px;
+	padding: 5px 1em;
 	margin: 0;
 
 }
 
 .ui-li-divider {
-	line-height: 18px;
+	line-height: 1.1em;
 	font-weight: 100; 
-	font-size: 20px;
+	font-size: 1.25em;
 	padding: .8em 15px;
 }
 
