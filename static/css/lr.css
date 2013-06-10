@@ -105,6 +105,10 @@ label.ui-submit {
 	right: 10px;
 }
 
+.menu-list {
+	min-width: 210px;
+}
+
 .ui-body-b form .infobtn {
 	display: inline-block;
 	line-height: 1em;
