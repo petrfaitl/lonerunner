@@ -14,6 +14,13 @@
 	display: none;
 }
 
+html {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom,#020202 0,#262b32 100%); /* Fills the page */
+  position: relative; /* Fix for absolute positioning */
+}
+
 legend {
 	font-weight: 400;
 	padding-left: 0;
@@ -103,6 +110,11 @@ label.ui-submit {
 	position: absolute;
 	top: 3px;
 	right: 10px;
+}
+
+.ui-header {
+max-width: 1200px;
+position: inherit;
 }
 
 .menu-list {
